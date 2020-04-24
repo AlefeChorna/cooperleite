@@ -15,8 +15,8 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    font-family: 'Overpass', sans-serif;
-    font-size: 20px;
+    font-family: 'Overpass', serif;
+    font-size: 16px;
   }
 
   h1, h2, h3, h4, h5, h6, strong {
