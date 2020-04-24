@@ -1,11 +1,14 @@
 import React from 'react';
 
-function App() {
+import GlobalStyle from './styles/global';
+
+const App: React.FC = () => {
   return (
-    <div className="App">
+    <>
       <h1>Welcome to Cooperleite</h1>
-    </div>
+      <GlobalStyle />
+    </>
   );
-}
+};
 
 export default App;
