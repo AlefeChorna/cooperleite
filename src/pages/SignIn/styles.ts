@@ -26,22 +26,6 @@ export const Content = styled.div`
       margin-bottom: 24px;
     }
 
-    input {
-      background: #29292e;
-      border-radius: 10px;
-      border: 2px solid #29292e;
-      padding: 15px;
-      width: 100%;
-      color: #f4ede8;
-      &::placeholder {
-        color: #666360;
-      }
-
-      & + input {
-        margin-top: 8px;
-      }
-    }
-
     button {
       background-color: #fd951f;
       color: #100f12;

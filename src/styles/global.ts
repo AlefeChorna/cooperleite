@@ -15,7 +15,7 @@ export default createGlobalStyle`
   }
 
   body, input, button {
-    font-family: 'Overpass', serif;
+    font-family: 'Fira Sans Condensed', sans-serif;
     font-size: 16px;
   }
 
