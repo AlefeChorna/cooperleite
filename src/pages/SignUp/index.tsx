@@ -5,6 +5,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
 
@@ -48,7 +49,7 @@ const SignUp: React.FC = () => {
             placeholder="Senha"
           />
 
-          <button type="submit">Cadastrar</button>
+          <Button type="submit">Cadastrar</Button>
         </Form>
 
         <a href="ca">

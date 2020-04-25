@@ -5,6 +5,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
 
@@ -45,7 +46,7 @@ const SignIn: React.FC = () => {
             placeholder="Senha"
           />
 
-          <button type="submit">Entrar</button>
+          <Button type="submit">Entrar</Button>
 
           <a href="forgot">Esqueci minha senha</a>
         </Form>
