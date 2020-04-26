@@ -1,16 +1,18 @@
 import React from 'react';
+import { Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
+import Routes from './routes';
+import history from './services/history';
 import GlobalStyle from './styles/global';
-
-// import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
 
 const App: React.FC = () => {
   return (
-    <>
+    <Router history={history}>
       <GlobalStyle />
-      <SignUp />
-    </>
+      <Routes />
+      <ToastContainer autoClose={5000} />
+    </Router>
   );
 };
 
