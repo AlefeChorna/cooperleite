@@ -60,12 +60,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerOpen: {
       width: drawerWidth,
+      backgroundColor: '#100f12',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerClose: {
+      backgroundColor: '#100f12',
+      borderRightColor: '#FFF',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -123,7 +126,7 @@ const DrawerMenu: React.FC = () => {
               [classes.hide]: open,
             })}
           >
-            <FiAlignRight />
+            <FiAlignRight size={25} color="#FFF" />
           </IconButton>
           <Typography variant="h6" noWrap>
             Cooperleite
@@ -145,28 +148,40 @@ const DrawerMenu: React.FC = () => {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <FiChevronRight /> : <FiChevronLeft />}
+            {theme.direction === 'rtl' ? (
+              <FiChevronRight size={25} color="#FFF" />
+            ) : (
+              <FiChevronLeft size={25} color="#FFF" />
+            )}
           </IconButton>
         </div>
         <Divider />
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button key={text} style={{ marginLeft: 9 }}>
               <ListItemIcon>
-                {index % 2 === 0 ? <FiInbox /> : <FiMail />}
+                {index % 2 === 0 ? (
+                  <FiInbox size={20} color="#FFF" />
+                ) : (
+                  <FiMail size={20} color="#FFF" />
+                )}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text} style={{ color: '#FFF' }} />
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button key={text} style={{ marginLeft: 9 }}>
               <ListItemIcon>
-                {index % 2 === 0 ? <FiInbox /> : <FiMail />}
+                {index % 2 === 0 ? (
+                  <FiInbox size={20} color="#FFF" />
+                ) : (
+                  <FiMail size={20} color="#FFF" />
+                )}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text} style={{ color: '#FFF' }} />
             </ListItem>
           ))}
         </List>

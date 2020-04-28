@@ -74,7 +74,7 @@ const black: SimplePaletteColorOptions = {
 
 const theme: CustomThemeOptions = {
   palette: {
-    primary: purple,
+    primary: orange,
     secondary: black,
     success: green,
     warning: orange,
