@@ -1,6 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
+import DrawerMenu from '../components/DrawerMenu';
+
+import { DrawerMenuProvider } from '../hooks/DrawerMenuContext';
 import {
   DashboardRouteComponent,
   SignInRouteComponent,
@@ -9,6 +13,10 @@ import {
   dashboardRoute,
   signUpRoute,
 } from './config';
+
+const Main = styled.main`
+  display: flex;
+`;
 
 const AppRoutes: React.FC = () => {
   return (
@@ -26,7 +34,14 @@ const AppRoutes: React.FC = () => {
 };
 
 const Routes: React.FC = () => {
-  return <AppRoutes />;
+  return (
+    <Main>
+      <DrawerMenuProvider>
+        <DrawerMenu />
+        <AppRoutes />
+      </DrawerMenuProvider>
+    </Main>
+  );
 };
 
 export default Routes;
