@@ -8,9 +8,10 @@ interface SectionProps {
 
 export const Section = styled.section<SectionProps>`
   flex-grow: 1;
-  height: 100%;
+  height: 100vh;
+  padding: 0;
   transition: padding-left
-    ${(props): string => (props.drawerMenuOpen ? '0ms' : '200ms')} ease-in-out;
+    ${(props): string => (props.drawerMenuOpen ? '0ms' : '225ms')} ease-in-out;
   padding-left: ${(props): number =>
     props.drawerMenuOpen
       ? props.drawerMenuOpenPadding
