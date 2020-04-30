@@ -5,14 +5,19 @@ import Toolbar from '../Toolbar';
 
 import { Section } from './styles';
 
-const Container: React.FC = ({ children }) => {
+const BaseLayout: React.FC = ({ children }) => {
   const { drawerMenuStorageState, metrics } = useDrawerMenu();
+  const defaultPadding = 0;
+  const drawerMenuClosePadding = useMemo(
+    () => metrics.drawerMenuWidthClose + defaultPadding,
+    [metrics.drawerMenuWidthClose],
+  );
 
   return (
     <Section
       drawerMenuOpen={drawerMenuStorageState}
-      drawerMenuClosePadding={120}
-      drawerMenuOpenPadding={40}
+      drawerMenuClosePadding={drawerMenuClosePadding}
+      drawerMenuOpenPadding={defaultPadding}
     >
       <Toolbar />
       {children}
@@ -20,4 +25,4 @@ const Container: React.FC = ({ children }) => {
   );
 };
 
-export default Container;
+export default BaseLayout;

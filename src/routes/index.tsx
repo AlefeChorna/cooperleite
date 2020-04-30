@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import DrawerMenu from '../components/DrawerMenu';
+import BaseLayout from '../components/BaseLayout';
 
 import { DrawerMenuProvider } from '../hooks/DrawerMenuContext';
 import {
@@ -34,11 +35,21 @@ const AppRoutes: React.FC = () => {
 };
 
 const Routes: React.FC = () => {
+  // if (!signed) {
+  //   return (
+  //     <Main>
+  //       <AppRoutes />
+  //     </Main>
+  //   );
+  // }
+
   return (
     <Main>
       <DrawerMenuProvider>
         <DrawerMenu />
-        <AppRoutes />
+        <BaseLayout>
+          <AppRoutes />
+        </BaseLayout>
       </DrawerMenuProvider>
     </Main>
   );

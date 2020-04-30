@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-// const drawerMenuPadding = '40px';
-// const drawerMenuClosePadding = '120px';
-
 interface SectionProps {
   drawerMenuOpen: boolean;
   drawerMenuClosePadding: number;
@@ -18,6 +15,4 @@ export const Section = styled.section<SectionProps>`
     props.drawerMenuOpen
       ? props.drawerMenuOpenPadding
       : props.drawerMenuClosePadding}px;
-  padding-top: 20px;
-  background: red;
 `;
