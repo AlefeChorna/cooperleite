@@ -13,7 +13,6 @@ import {
   drawerMenuItems,
   DrawerMenuItemProps,
 } from '../../routes/config/drawerMenu';
-import isPresent from '../../utils/isPresent';
 
 import ListItemLink from './ListItemLink';
 import { Container, Root, EmptyListItem, Drawer, AppBar } from './styles';
@@ -49,6 +48,8 @@ const DrawerMenu: React.FC = () => {
   );
 
   const toogleCollapsedItem = useCallback((itemName: string) => {
+    if (!itemName) return;
+
     setSelectedCollapsedItems((oldState) => {
       const newSelectedCollapsedItems = new Map(oldState);
       const currentColapsedItemValue = !!oldState.get(itemName);
@@ -226,8 +227,7 @@ const DrawerMenu: React.FC = () => {
                   isCollapsible={!!item.collapse}
                   collapseIsOpen={selectedCollapsedItems.get(item.name)}
                   onClick={(): void =>
-                    handleClick(item.name, '', !!item.collapse)
-                  }
+                    handleClick(item.name, '', !!item.collapse)}
                 />
                 {item.collapse && (
                   <Collapse
@@ -247,8 +247,7 @@ const DrawerMenu: React.FC = () => {
                             handleClick(
                               colItem.name,
                               colItem.collapseFatherName,
-                            )
-                          }
+                            )}
                         />
                       ))}
                     </List>
