@@ -7,7 +7,9 @@ interface SectionProps {
 }
 
 export const Section = styled.section<SectionProps>`
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   height: 100vh;
   padding: 0;
   transition: padding-left
@@ -16,4 +18,10 @@ export const Section = styled.section<SectionProps>`
     props.drawerMenuOpen
       ? props.drawerMenuOpenPadding
       : props.drawerMenuClosePadding}px;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
 `;

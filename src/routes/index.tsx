@@ -17,6 +17,7 @@ import {
 
 const Main = styled.main`
   display: flex;
+  flex: 1;
 `;
 
 const AppRoutes: React.FC = () => {

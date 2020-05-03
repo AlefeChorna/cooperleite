@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 import Toolbar from '../Toolbar';
 
-import { Section } from './styles';
+import { Section, Content } from './styles';
 
 const BaseLayout: React.FC = ({ children }) => {
   const { drawerMenuStorageState, metrics } = useDrawerMenu();
@@ -20,7 +20,7 @@ const BaseLayout: React.FC = ({ children }) => {
       drawerMenuOpenPadding={defaultPadding}
     >
       <Toolbar />
-      {children}
+      <Content>{children}</Content>
     </Section>
   );
 };
