@@ -29,6 +29,8 @@ const AppRoutes: React.FC = () => {
         component={DashboardRouteComponent}
         exact
       />
+      <Route path="/finances" component={DashboardRouteComponent} exact />
+      <Route path="/incomes" component={DashboardRouteComponent} exact />
       <Route component={DashboardRouteComponent} />
     </Switch>
   );

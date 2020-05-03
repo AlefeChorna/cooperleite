@@ -52,6 +52,7 @@ export const Drawer = styled(
     background-color: #29292e;
     transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
     overflow-x: hidden;
+    border-right: none;
   }
 `;
 

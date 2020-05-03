@@ -46,6 +46,13 @@
         "ts": "never",
         "tsx": "never"
       }
+    ],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "FunctionExpression",
+        "message": "Function expressions are not allowed."
+      }
     ]
   },
   "settings": {
