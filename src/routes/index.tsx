@@ -38,7 +38,7 @@ const AppRoutes: React.FC = () => {
 };
 
 const Routes: React.FC = () => {
-  // if (!signed) {
+  // if (true) {
   //   return (
   //     <Main>
   //       <AppRoutes />
@@ -46,16 +46,18 @@ const Routes: React.FC = () => {
   //   );
   // }
 
-  return (
-    <Main>
-      <DrawerMenuProvider>
-        <DrawerMenu />
-        <BaseLayout>
-          <AppRoutes />
-        </BaseLayout>
-      </DrawerMenuProvider>
-    </Main>
-  );
+  return <AppRoutes />;
+
+  // return (
+  //   <Main>
+  //     <DrawerMenuProvider>
+  //       <DrawerMenu />
+  //       <BaseLayout>
+  //         <AppRoutes />
+  //       </BaseLayout>
+  //     </DrawerMenuProvider>
+  //   </Main>
+  // );
 };
 
 export default Routes;

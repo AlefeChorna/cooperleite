@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 
 import history from './history';
@@ -23,7 +23,9 @@ const HTTP_STATUS = {
   UNPROCESSABLE_ENTITY: 422,
 };
 
-const api = axios.create();
+const api: AxiosInstance = axios.create({
+  baseURL: 'http://localhost:3333',
+});
 
 class Request {
   public static HTTP_STATUS = HTTP_STATUS;
@@ -48,6 +50,7 @@ class Request {
     data?: any,
     config?: AxiosRequestConfig,
   ): Promise<R> {
+    console.log('111111');
     return Request.request({ method: HTTP_METHOD.POST, path, data, config });
   }
 
@@ -85,6 +88,7 @@ class Request {
     data = {},
     config = {},
   }: RequestParams): Promise<R> {
+    console.log('22222');
     try {
       const response = await Request.httpRequest<R>({
         method,
@@ -95,7 +99,7 @@ class Request {
 
       return response;
     } catch (error) {
-      const { status } = error.response;
+      const { status, data: errorData } = error.response;
 
       if (status === Request.HTTP_STATUS.UNAUTHORIZED) {
         toast.error('Sua sessão encerrou. Faça login para continuar!');
@@ -104,17 +108,19 @@ class Request {
         return Promise.reject(new Error('SESSION_EXPIRED'));
       }
 
-      return Promise.reject(error);
+      return Promise.reject(errorData);
     }
   }
 
   private static async httpRequest<R>({
-    method,
+    method = 'get',
     path,
     data,
     config,
   }: RequestParams): Promise<R> {
-    const axiosMethod: Function = axios.prototype[method];
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    const axiosMethod: Function = api[method];
     const reqConfig = Request.getConfig(config || {});
 
     if ([HTTP_METHOD.GET, HTTP_METHOD.DEL].includes(method)) {

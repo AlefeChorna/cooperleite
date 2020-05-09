@@ -20,7 +20,7 @@ const RouteWrapper: React.FC<RouteWrapperProps> = ({
   ...rest
 }) => {
   // const { signed } = store.getState().auth;
-  const signed = true;
+  const signed = false;
 
   const loggedOutUserTryingAccessPrivateRoute = !signed && isPrivate;
   if (loggedOutUserTryingAccessPrivateRoute) {

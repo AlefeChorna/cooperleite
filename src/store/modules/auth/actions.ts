@@ -1,30 +1,19 @@
-interface Action {
-  type: string;
-  payload?: any;
+import { action } from 'typesafe-actions';
+import { ReduxAction } from '../types';
+import { AuthActionTypes, AuthPayload, SignInRequestProps } from './types';
+
+export function signInRequest(
+  data: SignInRequestProps,
+): ReduxAction<string, SignInRequestProps> {
+  return action(AuthActionTypes.SIGN_IN_REQUEST, data);
 }
 
-interface SignInSuccess {
-  token: string;
-  refreshToken: string;
+export function signInSuccess(
+  data: AuthPayload,
+): ReduxAction<string, AuthPayload> {
+  return action(AuthActionTypes.SIGN_IN_SUCCESS, data);
 }
 
-export function signInRequest(email: string, password: string): Action {
-  return {
-    type: '@App/auth/SIGN_IN_REQUEST',
-    payload: { email, password },
-  };
-}
-
-export function signInSuccess({ token, refreshToken }: SignInSuccess): Action {
-  return {
-    type: '@App/auth/SIGN_IN_SUCCESS',
-    payload: { token, refreshToken },
-  };
-}
-
-export function signFailure(error: any): Action {
-  return {
-    type: '@App/auth/SIGN_FAILURE',
-    payload: { error },
-  };
+export function signFailure(message: string): ReduxAction<string, string> {
+  return action(AuthActionTypes.SIGN_FAILURE, message);
 }

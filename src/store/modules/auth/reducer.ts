@@ -1,48 +1,34 @@
-/* eslint-disable no-param-reassign */
+import { Reducer } from 'redux';
 import produce from 'immer';
-import { AnyAction } from 'redux';
-
-interface AuthState {
-  token?: null;
-  refreshToken?: null;
-  signed?: boolean;
-  loading?: boolean;
-}
-
-interface AuthAction {
-  type: string;
-  payload: any;
-}
+import { AuthState, User, AuthActionTypes } from './types';
 
 const INITIAL_STATE: AuthState = {
-  token: null,
-  refreshToken: null,
+  token: '',
+  user: {} as User,
   signed: false,
   loading: false,
 };
 
-export default function auth(
-  state = INITIAL_STATE,
-  action: AnyAction,
-): AuthState {
+const auth: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      case '@App/auth/SIGN_IN_REQUEST': {
+      case AuthActionTypes.SIGN_IN_REQUEST: {
         draft.loading = true;
         break;
       }
-      case '@App/auth/SIGN_IN_SUCCESS': {
+      case AuthActionTypes.SIGN_IN_SUCCESS: {
         draft.token = action.payload.token;
-        draft.refreshToken = action.payload.refreshToken;
         draft.signed = true;
         draft.loading = false;
         break;
       }
-      case '@App/auth/SIGN_FAILURE': {
+      case AuthActionTypes.SIGN_FAILURE: {
         draft.loading = false;
         break;
       }
       default:
     }
   });
-}
+};
+
+export default auth;

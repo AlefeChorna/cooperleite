@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Spinner from '../../components/Spinner';
+import Table from '../../components/Table';
 
 import { Container } from './styles';
 
 const Dashboard: React.FC = () => {
   return (
     <Container>
-      <Spinner />
+      <Table />
     </Container>
   );
 };

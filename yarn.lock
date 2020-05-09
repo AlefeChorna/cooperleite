@@ -966,10 +966,17 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.9.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
   integrity sha512-NE2DtOdufG7R5vnfQUTehdTfNycfUANEtCa9PssN9O/xmTzP4E08UI797ixaei6hBEVL9BI/PsdJS5x7mWoB9Q==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.4.2":
+  version "7.9.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
+  integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -1023,6 +1030,39 @@
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
+
+"@devexpress/dx-core@2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-core/-/dx-core-2.6.2.tgz#7f87250b1d95b71dd67bc17683f02192ca46f729"
+  integrity sha512-+0SX4dsakt0Yo10wbMhfw/enC71+RKCCUbr8uxmn9xvnUKH5bkVTKS412bFlqJs04e9uTn9R6dvGhC/C7jobLA==
+
+"@devexpress/dx-grid-core@2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-grid-core/-/dx-grid-core-2.6.2.tgz#d14871dd73445b4c58c5e002341739f491a688b6"
+  integrity sha512-imhLILOnzsWvr6+cMSJikhl3rWICL2el0tTPCU8tLxg5pa2J9Gc9ra2NyFLv4XHEAqVKpNxUGtQ8fOK7aZZzcQ==
+
+"@devexpress/dx-react-core@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-core/-/dx-react-core-2.6.2.tgz#b3dc30d79c73d2b16c83bc535ed12b581f8a7610"
+  integrity sha512-5734dJ7TIhFYHpFykajrxCX7YYc+7AIrn8FN6T/rPIOCee0ku1tsG2wQwDLIaPr+SQ7eJ+i5n15jKVsrU27L8g==
+  dependencies:
+    "@devexpress/dx-core" "2.6.2"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid-material-ui@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-2.6.2.tgz#9719b9db8af988ab0b0286806f6e7463d1c6c6ee"
+  integrity sha512-YAnr8MZ294kgPTUV/lcVVHwBjPwKEgqyadg3s5TVUnsPL7KjykeamqC6/ok4PFIT4XOHgvGbd8jd7szCxHs/hQ==
+  dependencies:
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid/-/dx-react-grid-2.6.2.tgz#32040cf93627742ef445bc17a17e9ce9eb6aa299"
+  integrity sha512-i3icLGHmh4bW87seghRFkRqxUAckTgzeKw+P2LlCK0A4hIOab+583A1aBPexNk2XiHBNbiu8ZwRGNxWE1ByOKQ==
+  dependencies:
+    "@devexpress/dx-grid-core" "2.6.2"
 
 "@emotion/hash@^0.8.0":
   version "0.8.0"
@@ -1259,6 +1299,13 @@
     prop-types "^15.7.2"
     react-is "^16.8.0"
     react-transition-group "^4.3.0"
+
+"@material-ui/icons@^4.9.1":
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.9.1.tgz#fdeadf8cb3d89208945b33dbc50c7c616d0bd665"
+  integrity sha512-GBitL3oBWO0hzBhvA9KxqcowRUsA0qzwKkURyC8nppnC3fw54KPKZ+d4V1Eeg/UnDRSzDaI9nGCdel/eh9AQMg==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
 
 "@material-ui/react-transition-group@^4.3.0":
   version "4.3.0"
@@ -9260,7 +9307,17 @@ react-toastify@^5.5.0:
     prop-types "^15.7.2"
     react-transition-group "^4"
 
-react-transition-group@^4, react-transition-group@^4.3.0:
+react-transition-group@^4:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
+  integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
+
+react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
   integrity sha512-1qRV1ZuVSdxPlPf4O8t7inxUGpdyO5zG9IoNfJxSO0ImU2A1YWkEQvFPuIPZmMLkg5hYs7vv5mMOyfgSkvAwvw==
@@ -10861,6 +10918,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typesafe-actions@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-5.1.0.tgz#9afe8b1e6a323af1fd59e6a57b11b7dd6623d2f1"
+  integrity sha512-bna6Yi1pRznoo6Bz1cE6btB/Yy8Xywytyfrzu/wc+NFW3ZF0I+2iCGImhBsoYYCOWuICtRO4yHcnDlzgo1AdNg==
 
 typescript-compare@^0.0.2:
   version "0.0.2"

@@ -48,10 +48,13 @@
       }
     ],
     "no-restricted-syntax": [
+      "error"
+    ],
+    "no-param-reassign": [
       "error",
       {
-        "selector": "FunctionExpression",
-        "message": "Function expressions are not allowed."
+        "props": true,
+        "ignorePropertyModificationsFor": ["draft"]
       }
     ]
   },
