@@ -4,16 +4,23 @@ import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
 import { signInRoute } from '../../routes/config';
+import { signUpRequest } from '../../store/modules/auth/actions';
+import { RootTypes } from '../../store/types';
 
 import { Container, Content, AnimationContainer, Background } from './styles';
 
 const SignUp: React.FC = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector<RootTypes, boolean>(
+    (state) => state.auth.loading,
+  );
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async (data) => {
@@ -29,6 +36,7 @@ const SignUp: React.FC = () => {
       });
 
       await schema.validate(data, { abortEarly: false });
+      dispatch(signUpRequest(data));
     } catch (err) {
       const validationErrors = getValidationsErrors(err);
       formRef.current?.setErrors(validationErrors);
@@ -55,9 +63,10 @@ const SignUp: React.FC = () => {
               name="password"
               type="password"
               placeholder="Senha"
+              autoComplete="on"
             />
 
-            <Button loading={false} type="submit">
+            <Button loading={loading} type="submit">
               Cadastrar
             </Button>
           </Form>

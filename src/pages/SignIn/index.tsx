@@ -64,6 +64,7 @@ const SignIn: React.FC = () => {
               name="password"
               type="password"
               placeholder="Senha"
+              autoComplete="on"
             />
 
             <Button loading={loading} type="submit">
