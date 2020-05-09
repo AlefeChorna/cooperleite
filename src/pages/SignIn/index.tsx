@@ -66,7 +66,7 @@ const SignIn: React.FC = () => {
               placeholder="Senha"
             />
 
-            <Button disabled={loading} type="submit">
+            <Button loading={loading} type="submit">
               Entrar
             </Button>
 

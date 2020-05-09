@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 
 import history from '../services/history';
-// import { store } from '../store';
+import { store } from '../store';
 import { dashboardRoute } from './config';
 
 interface RouteWrapperProps extends RouteProps {
@@ -19,8 +19,7 @@ const RouteWrapper: React.FC<RouteWrapperProps> = ({
   path,
   ...rest
 }) => {
-  // const { signed } = store.getState().auth;
-  const signed = false;
+  const { signed } = store.getState().auth;
 
   const loggedOutUserTryingAccessPrivateRoute = !signed && isPrivate;
   if (loggedOutUserTryingAccessPrivateRoute) {

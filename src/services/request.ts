@@ -50,7 +50,6 @@ class Request {
     data?: any,
     config?: AxiosRequestConfig,
   ): Promise<R> {
-    console.log('111111');
     return Request.request({ method: HTTP_METHOD.POST, path, data, config });
   }
 
@@ -88,7 +87,6 @@ class Request {
     data = {},
     config = {},
   }: RequestParams): Promise<R> {
-    console.log('22222');
     try {
       const response = await Request.httpRequest<R>({
         method,

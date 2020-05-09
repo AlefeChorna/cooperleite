@@ -1,10 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import DrawerMenu from '../components/DrawerMenu';
 import BaseLayout from '../components/BaseLayout';
 
+import { RootTypes } from '../store/types';
 import { DrawerMenuProvider } from '../hooks/DrawerMenuContext';
 import {
   DashboardRouteComponent,
@@ -14,6 +16,10 @@ import {
   dashboardRoute,
   signUpRoute,
 } from './config';
+
+interface RoutesProps {
+  signed: boolean;
+}
 
 const Main = styled.main`
   display: flex;
@@ -37,27 +43,25 @@ const AppRoutes: React.FC = () => {
   );
 };
 
-const Routes: React.FC = () => {
-  // if (true) {
-  //   return (
-  //     <Main>
-  //       <AppRoutes />
-  //     </Main>
-  //   );
-  // }
+const Routes: React.FC<RoutesProps> = ({ signed }) => {
+  if (!signed) {
+    return <AppRoutes />;
+  }
 
-  return <AppRoutes />;
-
-  // return (
-  //   <Main>
-  //     <DrawerMenuProvider>
-  //       <DrawerMenu />
-  //       <BaseLayout>
-  //         <AppRoutes />
-  //       </BaseLayout>
-  //     </DrawerMenuProvider>
-  //   </Main>
-  // );
+  return (
+    <Main>
+      <DrawerMenuProvider>
+        <DrawerMenu />
+        <BaseLayout>
+          <AppRoutes />
+        </BaseLayout>
+      </DrawerMenuProvider>
+    </Main>
+  );
 };
 
-export default Routes;
+const mapStateToProps = (state: RootTypes): { signed: boolean } => ({
+  signed: state.auth.signed,
+});
+
+export default connect(mapStateToProps)(Routes);
