@@ -13,10 +13,12 @@ import {
   SignInRouteComponent,
   SignUpRouteComponent,
   ForgotPasswordRouteComponent,
+  ResetPasswordRouteComponent,
   signInRoute,
   dashboardRoute,
   signUpRoute,
   forgotPasswordRoute,
+  resetPasswordRoute,
 } from './config';
 
 interface RoutesProps {
@@ -36,6 +38,11 @@ const AppRoutes: React.FC = () => {
       <Route
         path={forgotPasswordRoute.path}
         component={ForgotPasswordRouteComponent}
+        exact
+      />
+      <Route
+        path={resetPasswordRoute.path}
+        component={ResetPasswordRouteComponent}
         exact
       />
       <Route

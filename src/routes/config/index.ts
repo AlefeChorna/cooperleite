@@ -4,5 +4,9 @@ export {
   forgotPasswordRoute,
   ForgotPasswordRouteComponent,
 } from './forgot-password.route';
+export {
+  resetPasswordRoute,
+  ResetPasswordRouteComponent,
+} from './reset-password.route';
 export { dashboardRoute, DashboardRouteComponent } from './dashboard.route';
 export { financesRoute } from './finances.route';
