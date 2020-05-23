@@ -12,9 +12,11 @@ import {
   DashboardRouteComponent,
   SignInRouteComponent,
   SignUpRouteComponent,
+  ForgotPasswordRouteComponent,
   signInRoute,
   dashboardRoute,
   signUpRoute,
+  forgotPasswordRoute,
 } from './config';
 
 interface RoutesProps {
@@ -31,6 +33,11 @@ const AppRoutes: React.FC = () => {
     <Switch>
       <Route path={signInRoute.path} component={SignInRouteComponent} exact />
       <Route path={signUpRoute.path} component={SignUpRouteComponent} exact />
+      <Route
+        path={forgotPasswordRoute.path}
+        component={ForgotPasswordRouteComponent}
+        exact
+      />
       <Route
         path={dashboardRoute.path}
         component={DashboardRouteComponent}

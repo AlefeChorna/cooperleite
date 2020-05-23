@@ -53,7 +53,7 @@ export function* signUp({
       password,
     });
 
-    toast.success('Cadastro realizado com sucesso. Faça logon para continuar!');
+    toast.success('Cadastro realizado com sucesso. Faça login para continuar!');
     yield put(signUpSuccess());
     history.push(signInRoute.path);
   } catch (err) {

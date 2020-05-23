@@ -10,7 +10,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
-import { signUpRoute } from '../../routes/config';
+import { signUpRoute, forgotPasswordRoute } from '../../routes/config';
 import { signInRequest } from '../../store/modules/auth/actions';
 import { RootTypes } from '../../store/types';
 
@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
       <Content>
         <AnimationContainer>
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu logon</h1>
+            <h1>Faça seu login</h1>
 
             <Input
               icon={FiMail}
@@ -71,7 +71,7 @@ const SignIn: React.FC = () => {
               Entrar
             </Button>
 
-            <a href="forgot">Esqueci minha senha</a>
+            <Link to={forgotPasswordRoute.path}>Esqueci minha senha</Link>
           </Form>
 
           <Link to={signUpRoute.path}>

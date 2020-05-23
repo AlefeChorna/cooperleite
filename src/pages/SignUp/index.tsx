@@ -73,7 +73,7 @@ const SignUp: React.FC = () => {
 
           <Link to={signInRoute.path}>
             <FiArrowLeft />
-            Voltar para logon
+            Voltar para login
           </Link>
         </AnimationContainer>
       </Content>
