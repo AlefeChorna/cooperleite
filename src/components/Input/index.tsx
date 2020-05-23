@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useRef,
   InputHTMLAttributes,
+  CSSProperties,
 } from 'react';
 import { useField } from '@unform/core';
 import { IconBaseProps } from 'react-icons';
@@ -14,9 +15,15 @@ import { Container, Error } from './styles';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   icon?: React.ComponentType<IconBaseProps>;
+  containetStyle?: CSSProperties;
 }
 
-const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
+const Input: React.FC<InputProps> = ({
+  name,
+  containetStyle = {},
+  icon: Icon,
+  ...rest
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
   const [isFocused, setIsFocused] = useState(false);
@@ -38,10 +45,16 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container isErrored={!!error} isFocused={isFocused} isFilled={isFilled}>
+    <Container
+      isErrored={!!error}
+      isFocused={isFocused}
+      isFilled={isFilled}
+      style={containetStyle}
+    >
       {Icon && <Icon size={20} />}
       <input
         ref={inputRef}
+        name={name}
         defaultValue={defaultValue}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}

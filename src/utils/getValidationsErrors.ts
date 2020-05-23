@@ -9,7 +9,7 @@ export default function getValidationsErrors(
 ): GetValidationError {
   const validationErrors: GetValidationError = {};
 
-  err.inner.forEach((error) => {
+  err.inner?.forEach((error) => {
     validationErrors[error.path] = error.message;
   });
 

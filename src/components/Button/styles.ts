@@ -5,7 +5,7 @@ export const Container = styled.button`
   background-color: ${(props): string =>
     props.disabled ? shade(0.6, '#fd951f') : '#fd951f'};
   color: #100f12;
-  height: 54px;
+  height: 45px;
   border-radius: 10px;
   border: 0;
   padding: 0 16px;
