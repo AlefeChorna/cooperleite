@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import DrawerMenu from '../components/DrawerMenu';
 import BaseLayout from '../components/BaseLayout';
 
-import { RootTypes } from '../store/types';
+import { StoreStateTypes } from '../store/types';
 import { DrawerMenuProvider } from '../hooks/DrawerMenuContext';
 import {
   DashboardRouteComponent,
@@ -14,11 +14,13 @@ import {
   SignUpRouteComponent,
   ForgotPasswordRouteComponent,
   ResetPasswordRouteComponent,
+  ProfileRouteComponent,
   signInRoute,
   dashboardRoute,
   signUpRoute,
   forgotPasswordRoute,
   resetPasswordRoute,
+  profileRoute,
 } from './config';
 
 interface RoutesProps {
@@ -50,6 +52,7 @@ const AppRoutes: React.FC = () => {
         component={DashboardRouteComponent}
         exact
       />
+      <Route path={profileRoute.path} component={ProfileRouteComponent} exact />
       <Route path="/finances" component={DashboardRouteComponent} exact />
       <Route path="/incomes" component={DashboardRouteComponent} exact />
       <Route component={DashboardRouteComponent} />
@@ -74,7 +77,7 @@ const Routes: React.FC<RoutesProps> = ({ signed }) => {
   );
 };
 
-const mapStateToProps = (state: RootTypes): { signed: boolean } => ({
+const mapStateToProps = (state: StoreStateTypes): { signed: boolean } => ({
   signed: state.auth.signed,
 });
 

@@ -10,7 +10,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
-import { signUpRoute, signInRoute } from '../../routes/config';
+import { signInRoute } from '../../routes/config';
 import Request from '../../services/request';
 import history from '../../services/history';
 
@@ -77,7 +77,7 @@ const ForgotPassword: React.FC = () => {
             </Button>
           </Form>
 
-          <Link to={signUpRoute.path}>
+          <Link to={signInRoute.path}>
             <FiLogIn />
             Voltar ao login
           </Link>

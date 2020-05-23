@@ -7,7 +7,7 @@ export default (reducers: Reducer): Reducer => {
     {
       key: 'cooperleite',
       storage,
-      whitelist: ['auth'],
+      whitelist: ['auth', 'user'],
     },
     reducers,
   );

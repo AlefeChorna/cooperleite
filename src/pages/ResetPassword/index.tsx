@@ -21,45 +21,48 @@ const ResetPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        password: Yup.string().min(8, 'Senha deve ter no mínimo 8 digítos'),
-        password_confirmation: Yup.string().oneOf(
-          [Yup.ref('password'), null],
-          'Senha de confirmação incorreta',
-        ),
-      });
+        const schema = Yup.object().shape({
+          password: Yup.string().min(8, 'Senha deve ter no mínimo 8 digítos'),
+          password_confirmation: Yup.string().oneOf(
+            [Yup.ref('password'), null],
+            'Senha de confirmação incorreta',
+          ),
+        });
 
-      await schema.validate(data, { abortEarly: false });
+        await schema.validate(data, { abortEarly: false });
 
-      setLoading(true);
+        setLoading(true);
 
-      const { token } = Route.getCurrentUrlParams();
-      await Request.post('/password/reset', {
-        ...data,
-        token,
-      });
+        const { token } = Route.getCurrentUrlParams();
+        await Request.post('/password/reset', {
+          ...data,
+          token,
+        });
 
-      toast.success(
-        'Em instantes você receberá um e-mail com instruções para alterar sua senha',
-      );
+        toast.success(
+          'Em instantes você receberá um e-mail com instruções para alterar sua senha',
+        );
 
-      history.replace(signInRoute.path, {});
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const validationErrors = getValidationsErrors(err);
-        formRef.current?.setErrors(validationErrors);
-        return;
+        history.replace(signInRoute.path, {});
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const validationErrors = getValidationsErrors(err);
+          formRef.current?.setErrors(validationErrors);
+          return;
+        }
+
+        toast.error('Ocorreu um erro ao alterar sua senha, tente novamente');
+      } finally {
+        setLoading(false);
       }
-
-      toast.error('Ocorreu um erro ao alterar sua senha, tente novamente');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    },
+    [history],
+  );
 
   return (
     <Container>

@@ -1,17 +1,12 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
-import {
-  AuthActionTypes,
-  SignInRequestProps,
-  SignUpRequestProps,
-  AuthPayload,
-} from './types';
+import { AuthActionTypes, SignInRequestProps, AuthPayload } from './types';
 import { PersistReducerActionTypes } from '../types';
-import { signInSuccess, signUpSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure } from './actions';
 import Request from '../../../services/request';
 import history from '../../../services/history';
-import { dashboardRoute, signInRoute } from '../../../routes/config';
+import { dashboardRoute } from '../../../routes/config';
 
 interface SignAction<P> {
   type: string;
@@ -42,33 +37,6 @@ export function* signIn({
   }
 }
 
-export function* signUp({
-  payload,
-}: ReturnType<() => SignAction<SignUpRequestProps>>): Generator<any> {
-  const { name, email, password } = payload;
-  try {
-    yield call(Request.post, '/signup', {
-      name,
-      email,
-      password,
-    });
-
-    toast.success('Cadastro realizado com sucesso. Faça login para continuar!');
-    yield put(signUpSuccess());
-    history.push(signInRoute.path);
-  } catch (err) {
-    let errorMessage =
-      'Não foi possível realizar o cadastro. Tente novamente mais tarde!';
-
-    if (err?.status === Request.HTTP_STATUS.UNPROCESSABLE_ENTITY) {
-      errorMessage = err.message;
-    }
-
-    toast.error(errorMessage);
-    yield put(signFailure(err.message));
-  }
-}
-
 export function rehydrateAuth({ payload }: any): void {
   if (payload?.auth) {
     const persistedReducer = payload.auth;
@@ -83,5 +51,4 @@ export function rehydrateAuth({ payload }: any): void {
 export default all([
   takeLatest(PersistReducerActionTypes.REHYDRATE, rehydrateAuth),
   takeLatest(AuthActionTypes.SIGN_IN_REQUEST, signIn),
-  takeLatest(AuthActionTypes.SIGN_UP_REQUEST, signUp),
 ]);

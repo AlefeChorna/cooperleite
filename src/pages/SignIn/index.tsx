@@ -12,13 +12,13 @@ import Button from '../../components/Button';
 import getValidationsErrors from '../../utils/getValidationsErrors';
 import { signUpRoute, forgotPasswordRoute } from '../../routes/config';
 import { signInRequest } from '../../store/modules/auth/actions';
-import { RootTypes } from '../../store/types';
+import { StoreStateTypes } from '../../store/types';
 
 import { Container, Content, AnimationContainer, Background } from './styles';
 
 const SignIn: React.FC = () => {
   const dispatch = useDispatch();
-  const loading = useSelector<RootTypes, boolean>(
+  const loading = useSelector<StoreStateTypes, boolean>(
     (state) => state.auth.loading,
   );
 

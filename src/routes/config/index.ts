@@ -10,3 +10,4 @@ export {
 } from './reset-password.route';
 export { dashboardRoute, DashboardRouteComponent } from './dashboard.route';
 export { financesRoute } from './finances.route';
+export { profileRoute, ProfileRouteComponent } from './profile.route';

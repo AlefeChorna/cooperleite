@@ -11,37 +11,40 @@ import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
 import { signInRoute } from '../../routes/config';
-import { signUpRequest } from '../../store/modules/auth/actions';
-import { RootTypes } from '../../store/types';
+import { signUpRequest } from '../../store/modules/user/actions';
+import { StoreStateTypes } from '../../store/types';
 
 import { Container, Content, AnimationContainer, Background } from './styles';
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
-  const loading = useSelector<RootTypes, boolean>(
+  const loading = useSelector<StoreStateTypes, boolean>(
     (state) => state.auth.loading,
   );
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Nome obrigatório'),
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um e-mail válido'),
-        password: Yup.string().min(6, 'No mínimo 6 digitos'),
-      });
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().min(6, 'No mínimo 6 digitos'),
+        });
 
-      await schema.validate(data, { abortEarly: false });
-      dispatch(signUpRequest(data));
-    } catch (err) {
-      const validationErrors = getValidationsErrors(err);
-      formRef.current?.setErrors(validationErrors);
-    }
-  }, []);
+        await schema.validate(data, { abortEarly: false });
+        dispatch(signUpRequest(data));
+      } catch (err) {
+        const validationErrors = getValidationsErrors(err);
+        formRef.current?.setErrors(validationErrors);
+      }
+    },
+    [dispatch],
+  );
 
   return (
     <Container>

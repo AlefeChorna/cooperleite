@@ -14,6 +14,7 @@ import {
   DrawerMenuItemProps,
 } from '../../routes/config/drawerMenu';
 
+import Profile from './Profile';
 import ListItemLink from './ListItemLink';
 import { Container, Root, EmptyListItem, Drawer, AppBar } from './styles';
 
@@ -204,6 +205,8 @@ const DrawerMenu: React.FC = () => {
             <Typography variant="h6" noWrap>
               Cooperleite
             </Typography>
+
+            <Profile />
           </Toolbar>
         </AppBar>
         <Drawer
