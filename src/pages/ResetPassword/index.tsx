@@ -45,7 +45,7 @@ const ResetPassword: React.FC = () => {
         });
 
         toast.success(
-          'Em instantes você receberá um e-mail com instruções para alterar sua senha',
+          'Sua senha foi alterada com sucesso. Faça seu login para continuar navegando!',
         );
 
         history.replace(signInRoute.path, {});

@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { ReduxAction } from '../types';
+import { ReduxAction, ReduxShortAction } from '../types';
 import { AuthActionTypes, AuthPayload, SignInRequestProps } from './types';
 
 export function signInRequest(
@@ -16,4 +16,8 @@ export function signInSuccess(
 
 export function signFailure(message: string): ReduxAction<string, string> {
   return action(AuthActionTypes.SIGN_FAILURE, message);
+}
+
+export function signOut(): ReduxShortAction<string> {
+  return action(AuthActionTypes.SIGN_OUT);
 }

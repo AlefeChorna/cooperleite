@@ -12,6 +12,7 @@ export enum AuthActionTypes {
   SIGN_IN_REQUEST = '@App/auth/SIGN_IN_REQUEST',
   SIGN_IN_SUCCESS = '@App/auth/SIGN_IN_SUCCESS',
   SIGN_FAILURE = '@App/auth/SIGN_FAILURE',
+  SIGN_OUT = '@App/auth/SIGN_OUT',
 }
 
 export interface AuthState {

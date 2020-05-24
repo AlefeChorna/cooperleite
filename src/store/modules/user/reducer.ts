@@ -38,6 +38,10 @@ const user: Reducer<UserState> = (state = INITIAL_STATE, action) => {
         draft.loading = false;
         break;
       }
+      case AuthActionTypes.SIGN_OUT: {
+        Object.assign(draft, INITIAL_STATE);
+        break;
+      }
       default:
     }
   });
