@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import { TableHeaderRow as MUTableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
-import MUTableHead from '@material-ui/core/TableHead';
+import {
+  Table,
+  TableHeaderRow as MUTableHeaderRow,
+} from '@devexpress/dx-react-grid-material-ui';
+import MUITableHead from '@material-ui/core/TableHead';
 
 interface ContainerProps {
   drawerMenuOpen: boolean;
@@ -16,16 +19,44 @@ export const TableHeaderRow = styled(MUTableHeaderRow).attrs({
   style: { height: 500 },
 })``;
 
-export const TableHead = styled(MUTableHead)`
+export const TableHead = styled(MUITableHead)`
   tr {
     th {
       color: #fff;
       font-weight: bold;
-      border-bottom: 1px solid red;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: #29292e;
+
+      span {
+        &:hover {
+          color: #fd951f;
+        }
+
+        &:focus {
+          color: #fd951f;
+        }
+      }
+
+      :last-child {
+        border: none;
+        border-left: 1px solid #777;
+        border-bottom: 1px solid #777;
+      }
     }
 
     :last-child {
-      border: none;
+      display: block;
     }
+  }
+`;
+
+export const TableCell = styled(Table.Cell)`
+  background-color: #29292e !important;
+  color: #fff !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+
+  :last-child {
+    border-left: 1px solid #444;
+    border-bottom: 1px solid #444 !important;
   }
 `;

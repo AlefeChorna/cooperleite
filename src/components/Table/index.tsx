@@ -4,10 +4,8 @@ import {
   SortingState,
   EditingState,
   PagingState,
-  SummaryState,
   IntegratedPaging,
   IntegratedSorting,
-  IntegratedSummary,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -18,12 +16,11 @@ import {
   DragDropProvider,
   TableColumnReordering,
   TableFixedColumns,
-  TableSummaryRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 
-import { Container, TableHeaderRow, TableHead } from './styles';
+import { Container, TableHeaderRow, TableHead, TableCell } from './styles';
 
 const Table: React.FC = () => {
   const [columns] = useState([
@@ -88,10 +85,6 @@ const Table: React.FC = () => {
   const [currencyColumns] = useState(['amount']);
   const [percentColumns] = useState(['discount']);
   const [leftFixedColumns] = useState(['customer']);
-  const [totalSummaryItems] = useState([
-    { columnName: 'discount', type: 'avg' },
-    { columnName: 'amount', type: 'sum' },
-  ]);
   const { drawerMenuStorageState } = useDrawerMenu();
 
   const getRowId = useCallback((row: any): number => row.id, []);
@@ -112,37 +105,18 @@ const Table: React.FC = () => {
             pageSize={pageSize}
             onPageSizeChange={setPageSize}
           />
-          <SummaryState totalItems={totalSummaryItems} />
 
           <IntegratedSorting />
           <IntegratedPaging />
-          <IntegratedSummary />
 
           <DragDropProvider />
 
           <MUITable
             headComponent={(props) => {
-              return (
-                <TableHead
-                  {...props}
-                  style={{
-                    backgroundColor: '#29292e',
-                    color: '#FFF',
-                  }}
-                />
-              );
+              return <TableHead {...props} />;
             }}
             cellComponent={(props) => {
-              return (
-                <MUITable.Cell
-                  {...props}
-                  style={{
-                    backgroundColor: '#29292e',
-                    color: '#FFF',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
-                  }}
-                />
-              );
+              return <TableCell {...props} />;
             }}
             columnExtensions={tableColumnExtensions}
           />
@@ -151,7 +125,6 @@ const Table: React.FC = () => {
             onOrderChange={setColumnOrder}
           />
           <TableHeaderRow showSortingControls />
-          <TableSummaryRow />
           <TableFixedColumns leftColumns={leftFixedColumns} />
           <PagingPanel pageSizes={pageSizes} />
         </Grid>
