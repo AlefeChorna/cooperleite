@@ -12,7 +12,6 @@ import {
 import {
   Grid,
   Table as MUITable,
-  TableHeaderRow,
   TableEditRow,
   TableEditColumn,
   PagingPanel,
@@ -24,7 +23,7 @@ import {
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 
-import { Container } from './styles';
+import { Container, TableHeaderRow, TableHead } from './styles';
 
 const Table: React.FC = () => {
   const [columns] = useState([
@@ -121,7 +120,32 @@ const Table: React.FC = () => {
 
           <DragDropProvider />
 
-          <MUITable columnExtensions={tableColumnExtensions} />
+          <MUITable
+            headComponent={(props) => {
+              return (
+                <TableHead
+                  {...props}
+                  style={{
+                    backgroundColor: '#29292e',
+                    color: '#FFF',
+                  }}
+                />
+              );
+            }}
+            cellComponent={(props) => {
+              return (
+                <MUITable.Cell
+                  {...props}
+                  style={{
+                    backgroundColor: '#29292e',
+                    color: '#FFF',
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+                  }}
+                />
+              );
+            }}
+            columnExtensions={tableColumnExtensions}
+          />
           <TableColumnReordering
             order={columnOrder}
             onOrderChange={setColumnOrder}

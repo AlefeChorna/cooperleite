@@ -24,7 +24,7 @@ const HTTP_STATUS = {
 };
 
 const api: AxiosInstance = axios.create({
-  baseURL: 'http://192.168.0.106:3333',
+  baseURL: 'http://192.168.0.105:3333',
 });
 
 class Request {
