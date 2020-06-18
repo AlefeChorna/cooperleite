@@ -17,6 +17,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
+import NoDataRow from './components/NoDataRow';
 
 import {
   Container,
@@ -56,7 +57,7 @@ const Table: React.FC = () => {
     { name: 'saleDate', title: 'Sale Date' },
     { name: 'customer', title: 'Customer' },
   ]);
-  const [rows, setRows] = useState(generateData());
+  const [rows, setRows] = useState([]);
   const [tableColumnExtensions] = useState([
     { columnName: 'product' },
     { columnName: 'region', width: 180 },
@@ -109,11 +110,16 @@ const Table: React.FC = () => {
           <DragDropProvider />
 
           <MUITable
+            columnExtensions={tableColumnExtensions}
             headComponent={TableHead}
             cellComponent={(props): any => {
               return <TableCell {...props} />;
             }}
-            columnExtensions={tableColumnExtensions}
+            noDataRowComponent={({ children }): any => (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
+              <NoDataRow loading={false} colSpan={children?.length || 0} />
+            )}
           />
           <TableColumnReordering
             order={columnOrder}

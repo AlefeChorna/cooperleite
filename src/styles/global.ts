@@ -26,4 +26,15 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  ::selection {
+    color: #fff;
+    background-color: #fd951f;
+  }
+
+  /* for firefox */
+  ::moz-selection {
+    color: #fff;
+    background-color: #fd951f;
+  }
 `;
