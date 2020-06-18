@@ -1,8 +1,7 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import Paper from '@material-ui/core/Paper';
 import {
   SortingState,
-  EditingState,
   PagingState,
   IntegratedPaging,
   IntegratedSorting,
@@ -10,8 +9,7 @@ import {
 import {
   Grid,
   Table as MUITable,
-  TableEditRow,
-  TableEditColumn,
+  TableHeaderRow,
   PagingPanel,
   DragDropProvider,
   TableColumnReordering,
@@ -20,20 +18,19 @@ import {
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 
-import { Container, TableHeaderRow, TableHead, TableCell } from './styles';
+import {
+  Container,
+  TableHead,
+  TableCell,
+  PagingPanelContainer,
+} from './styles';
 
-const Table: React.FC = () => {
-  const [columns] = useState([
-    { name: 'product', title: 'Product' },
-    { name: 'region', title: 'Region' },
-    { name: 'amount', title: 'Sale Amount' },
-    { name: 'discount', title: 'Discount' },
-    { name: 'saleDate', title: 'Sale Date' },
-    { name: 'customer', title: 'Customer' },
-  ]);
-  const [rows, setRows] = useState([
-    {
-      id: 0,
+function generateData() {
+  const data = [];
+
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      id: i,
       region: 'South America',
       sector: 'Banking',
       channel: 'VARs',
@@ -44,21 +41,22 @@ const Table: React.FC = () => {
       discount: 0.279,
       saleDate: '2016-02-28',
       shipped: false,
-    },
-    {
-      id: 1,
-      region: 'North America',
-      sector: 'Health',
-      channel: 'Telecom',
-      units: 4,
-      customer: 'Global Services',
-      product: 'EnviroCare',
-      amount: 9528.65,
-      discount: 0.264,
-      saleDate: '2016-02-07',
-      shipped: true,
-    },
+    });
+  }
+
+  return data;
+}
+
+const Table: React.FC = () => {
+  const [columns] = useState([
+    { name: 'product', title: 'Product' },
+    { name: 'region', title: 'Region' },
+    { name: 'amount', title: 'Sale Amount' },
+    { name: 'discount', title: 'Discount' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'customer', title: 'Customer' },
   ]);
+  const [rows, setRows] = useState(generateData());
   const [tableColumnExtensions] = useState([
     { columnName: 'product' },
     { columnName: 'region', width: 180 },
@@ -68,11 +66,10 @@ const Table: React.FC = () => {
     { columnName: 'customer', width: 200 },
   ]);
   const [sorting, setSorting] = useState([]);
-  const [editingRowIds, getEditingRowIds] = useState([]);
   const [addedRows, setAddedRows] = useState([]);
   const [rowChanges, setRowChanges] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
   const [pageSizes] = useState([5, 10, 0]);
   const [columnOrder, setColumnOrder] = useState([
     'product',
@@ -112,10 +109,8 @@ const Table: React.FC = () => {
           <DragDropProvider />
 
           <MUITable
-            headComponent={(props) => {
-              return <TableHead {...props} />;
-            }}
-            cellComponent={(props) => {
+            headComponent={TableHead}
+            cellComponent={(props): any => {
               return <TableCell {...props} />;
             }}
             columnExtensions={tableColumnExtensions}
@@ -126,7 +121,17 @@ const Table: React.FC = () => {
           />
           <TableHeaderRow showSortingControls />
           <TableFixedColumns leftColumns={leftFixedColumns} />
-          <PagingPanel pageSizes={pageSizes} />
+          <PagingPanel
+            containerComponent={(props): any => {
+              return <PagingPanelContainer {...props} />;
+            }}
+            messages={{
+              showAll: 'Tudo',
+              rowsPerPage: 'Registros por página',
+              info: ({ from, to, count }) => `${from}-${to} de ${count}`,
+            }}
+            pageSizes={pageSizes}
+          />
         </Grid>
       </Paper>
     </Container>

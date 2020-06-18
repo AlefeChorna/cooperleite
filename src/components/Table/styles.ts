@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import {
-  Table,
-  TableHeaderRow as MUTableHeaderRow,
-} from '@devexpress/dx-react-grid-material-ui';
+import { Table, PagingPanel } from '@devexpress/dx-react-grid-material-ui';
 import MUITableHead from '@material-ui/core/TableHead';
 
 interface ContainerProps {
@@ -14,10 +11,6 @@ export const Container = styled.div<ContainerProps>`
   width: calc(100% - 0px);
   transition: width 400ms ease-in-out;
 `;
-
-export const TableHeaderRow = styled(MUTableHeaderRow).attrs({
-  style: { height: 500 },
-})``;
 
 export const TableHead = styled(MUITableHead)`
   tr {
@@ -58,5 +51,39 @@ export const TableCell = styled(Table.Cell)`
   :last-child {
     border-left: 1px solid #444;
     border-bottom: 1px solid #444 !important;
+  }
+`;
+
+export const PagingPanelContainer = styled(PagingPanel.Container)`
+  background-color: #29292e;
+  color: #fff;
+
+  div {
+    color: #fff;
+
+    svg {
+      color: #fff;
+    }
+
+    button {
+      span {
+        color: #fff !important;
+      }
+    }
+
+    & .Mui-disabled {
+      span {
+        svg {
+          color: rgba(255, 255, 255, 0.4);
+        }
+      }
+    }
+
+    & .Pagination-activeButton-275 {
+      span {
+        color: #fa751f !important;
+        font-size: 15px;
+      }
+    }
   }
 `;
