@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Paper from '@material-ui/core/Paper';
 import {
   SortingState,
@@ -18,6 +18,7 @@ import {
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 import NoDataRow from './components/NoDataRow';
+import Loading from './components/Loading';
 
 import {
   Container,
@@ -57,7 +58,7 @@ const Table: React.FC = () => {
     { name: 'saleDate', title: 'Sale Date' },
     { name: 'customer', title: 'Customer' },
   ]);
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState<any>([]);
   const [tableColumnExtensions] = useState([
     { columnName: 'product' },
     { columnName: 'region', width: 180 },
@@ -84,12 +85,21 @@ const Table: React.FC = () => {
   const [percentColumns] = useState(['discount']);
   const [leftFixedColumns] = useState(['customer']);
   const { drawerMenuStorageState } = useDrawerMenu();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const rowsData = generateData();
+      setRows(rowsData);
+      // setLoading(false);
+    }, 5000);
+  }, []);
 
   const getRowId = useCallback((row: any): number => row.id, []);
 
   return (
     <Container drawerMenuOpen={drawerMenuStorageState}>
-      <Paper>
+      <Paper style={{ position: 'relative' }}>
         <Grid rows={rows} columns={columns} getRowId={getRowId}>
           <SortingState
             sorting={sorting}
@@ -118,7 +128,7 @@ const Table: React.FC = () => {
             noDataRowComponent={({ children }): any => (
               // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
-              <NoDataRow loading={false} colSpan={children?.length || 0} />
+              <NoDataRow loading={loading} colSpan={children?.length || 0} />
             )}
           />
           <TableColumnReordering
@@ -139,6 +149,8 @@ const Table: React.FC = () => {
             pageSizes={pageSizes}
           />
         </Grid>
+
+        {loading && <Loading />}
       </Paper>
     </Container>
   );
