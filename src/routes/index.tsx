@@ -30,6 +30,7 @@ interface RoutesProps {
 const Main = styled.main`
   display: flex;
   flex: 1;
+  overflow-x: hidden;
 `;
 
 const AppRoutes: React.FC = () => {

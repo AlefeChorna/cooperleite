@@ -91,8 +91,8 @@ const Table: React.FC = () => {
     setTimeout(() => {
       const rowsData = generateData();
       setRows(rowsData);
-      // setLoading(false);
-    }, 5000);
+      setLoading(false);
+    }, 500);
   }, []);
 
   const getRowId = useCallback((row: any): number => row.id, []);
