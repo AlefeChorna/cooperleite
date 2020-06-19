@@ -10,7 +10,7 @@ export const Section = styled.section<SectionProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 0;
   transition: padding-left
     ${(props): string => (props.drawerMenuOpen ? '0ms' : '225ms')} ease-in-out;
