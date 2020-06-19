@@ -61,11 +61,11 @@ const Table: React.FC = () => {
   const [rows, setRows] = useState<any>([]);
   const [tableColumnExtensions] = useState([
     { columnName: 'product' },
-    { columnName: 'region', width: 180 },
+    { columnName: 'region', width: 380 },
     { columnName: 'amount', width: 180 },
     { columnName: 'discount', width: 180 },
     { columnName: 'saleDate', width: 180 },
-    { columnName: 'customer', width: 200 },
+    { columnName: 'customer', width: 250 },
   ]);
   const [sorting, setSorting] = useState([]);
   const [addedRows, setAddedRows] = useState([]);
@@ -83,8 +83,8 @@ const Table: React.FC = () => {
   ]);
   const [currencyColumns] = useState(['amount']);
   const [percentColumns] = useState(['discount']);
-  const [leftFixedColumns] = useState(['customer']);
-  const { drawerMenuStorageState } = useDrawerMenu();
+  const [rightFixedColumns] = useState(['customer']);
+  const { drawerMenuStorageState, metrics } = useDrawerMenu();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -92,13 +92,17 @@ const Table: React.FC = () => {
       const rowsData = generateData();
       setRows(rowsData);
       setLoading(false);
-    }, 500);
+    }, 1500);
   }, []);
 
   const getRowId = useCallback((row: any): number => row.id, []);
 
   return (
-    <Container drawerMenuOpen={drawerMenuStorageState}>
+    <Container
+      drawerMenuOpen={drawerMenuStorageState}
+      drawerMenuWidthOpen={metrics.drawerMenuWidthOpen}
+      drawerMenuWidthClose={metrics.drawerMenuWidthClose}
+    >
       <Paper style={{ position: 'relative' }}>
         <Grid rows={rows} columns={columns} getRowId={getRowId}>
           <SortingState
@@ -136,7 +140,7 @@ const Table: React.FC = () => {
             onOrderChange={setColumnOrder}
           />
           <TableHeaderRow showSortingControls />
-          <TableFixedColumns leftColumns={leftFixedColumns} />
+          <TableFixedColumns rightColumns={rightFixedColumns} />
           <PagingPanel
             containerComponent={(props): any => {
               return <PagingPanelContainer {...props} />;

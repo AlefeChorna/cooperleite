@@ -4,12 +4,38 @@ import MUITableHead from '@material-ui/core/TableHead';
 
 interface ContainerProps {
   drawerMenuOpen: boolean;
+  drawerMenuWidthOpen: number;
+  drawerMenuWidthClose: number;
+}
+
+function calcContainerWidth(metrics: ContainerProps): string {
+  const defaultPaddingOnPages = 35;
+  const padding = defaultPaddingOnPages * 2;
+  const drawerWidth = metrics.drawerMenuOpen
+    ? metrics.drawerMenuWidthOpen + padding
+    : metrics.drawerMenuWidthClose + padding;
+
+  return `calc(100vw - ${drawerWidth}px)`;
 }
 
 export const Container = styled.div<ContainerProps>`
   display: block;
-  width: calc(100% - 0px);
+  width: ${(props): string => calcContainerWidth(props)};
   transition: width 400ms ease-in-out;
+
+  scrollbar-width: thin;
+  scrollbar-color: red;
+
+  *::-webkit-scrollbar {
+    width: 1.4em;
+    height: 7px;
+    background: #777;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #5a4799 5%, #fd951f 50%, #5a4799 98%);
+    outline: 1px solid black;
+    border-radius: 30%;
+  }
 `;
 
 export const TableHead = styled(MUITableHead)`
