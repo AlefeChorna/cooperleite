@@ -105,10 +105,10 @@ export const PagingPanelContainer = styled(PagingPanel.Container)`
       }
     }
 
-    & .Pagination-activeButton-270 {
+    & [class^='Pagination-activeButton'],
+    [class*=' Pagination-activeButton'] {
       span {
         color: #fa751f !important;
-        font-size: 15px;
       }
     }
   }
