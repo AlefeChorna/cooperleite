@@ -24,7 +24,6 @@ export const Container = styled.div<ContainerProps>`
   transition: width 400ms ease-in-out;
 
   scrollbar-width: thin;
-  scrollbar-color: red;
 
   *::-webkit-scrollbar {
     width: 1.4em;
@@ -32,9 +31,9 @@ export const Container = styled.div<ContainerProps>`
     background: #777;
   }
   *::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #5a4799 5%, #fd951f 50%, #5a4799 98%);
+    background: linear-gradient(90deg, #5a4799 10%, #fd951f 30%, #5a4799 99%);
     outline: 1px solid black;
-    border-radius: 30%;
+    border-radius: 10px;
   }
 `;
 

@@ -37,4 +37,17 @@ export default createGlobalStyle`
     color: #fff;
     background-color: #fd951f;
   }
+
+  scrollbar-width: thin;
+
+  *::-webkit-scrollbar {
+    width: 0.8em;
+    height: 7px;
+    background: #29292e;
+    padding-left: 2px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+  }
 `;
