@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import { FiAlignRight } from 'react-icons/fi';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { useDispatch } from 'react-redux';
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 
@@ -17,7 +15,6 @@ import {
 } from '../../routes/config/drawerMenu';
 import Profile from './Profile';
 import ListItemLink from './ListItemLink';
-import { signOut } from '../../store/modules/auth/actions';
 
 import { Container, Root, EmptyListItem, Drawer, AppBar } from './styles';
 
@@ -29,7 +26,6 @@ const DrawerMenu: React.FC = () => {
     new Map(),
   );
   const { location } = useHistory();
-  const dispatch = useDispatch();
 
   const {
     open,
@@ -210,13 +206,6 @@ const DrawerMenu: React.FC = () => {
               Cooperleite
             </Typography>
             <Profile />
-            <IconButton
-              aria-label="delete"
-              style={{ marginLeft: 10 }}
-              onClick={(): any => dispatch(signOut())}
-            >
-              <ExitToAppIcon htmlColor="#FFF" />
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer

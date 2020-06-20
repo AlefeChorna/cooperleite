@@ -33,7 +33,7 @@ export const Container = styled.div<ContainerProps>`
   *::-webkit-scrollbar-thumb {
     background: linear-gradient(90deg, #5a4799 10%, #fd951f 30%, #5a4799 99%);
     outline: 1px solid black;
-    border-radius: 10px;
+    border-radius: 6px;
   }
 `;
 
