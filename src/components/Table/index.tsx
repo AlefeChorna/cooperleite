@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Paper from '@material-ui/core/Paper';
 import {
   SortingState,
   PagingState,
@@ -22,6 +21,7 @@ import Loading from './components/Loading';
 
 import {
   Container,
+  Paper,
   TableHead,
   TableCell,
   PagingPanelContainer,
@@ -103,7 +103,7 @@ const Table: React.FC = () => {
       drawerMenuWidthOpen={metrics.drawerMenuWidthOpen}
       drawerMenuWidthClose={metrics.drawerMenuWidthClose}
     >
-      <Paper style={{ position: 'relative' }}>
+      <Paper>
         <Grid rows={rows} columns={columns} getRowId={getRowId}>
           <SortingState
             sorting={sorting}
@@ -148,7 +148,8 @@ const Table: React.FC = () => {
             messages={{
               showAll: 'Tudo',
               rowsPerPage: 'Registros por página',
-              info: ({ from, to, count }) => `${from}-${to} de ${count}`,
+              info: ({ from, to, count }): string =>
+                `${from}-${to} de ${count}`,
             }}
             pageSizes={pageSizes}
           />

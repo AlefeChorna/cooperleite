@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Table, PagingPanel } from '@devexpress/dx-react-grid-material-ui';
 import MUITableHead from '@material-ui/core/TableHead';
+import MUIPaper from '@material-ui/core/Paper';
 
 interface ContainerProps {
   drawerMenuOpen: boolean;
@@ -35,6 +36,11 @@ export const Container = styled.div<ContainerProps>`
     outline: 1px solid black;
     border-radius: 6px;
   }
+`;
+
+export const Paper = styled(MUIPaper)`
+  position: relative;
+  background-color: #100f12 !important;
 `;
 
 export const TableHead = styled(MUITableHead)`
