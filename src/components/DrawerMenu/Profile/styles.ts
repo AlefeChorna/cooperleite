@@ -14,6 +14,7 @@ export const Container = styled.div`
     flex-direction: row;
     text-decoration: none;
     color: #fff;
+    cursor: pointer;
   }
 `;
 

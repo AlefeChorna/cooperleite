@@ -36,7 +36,7 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <a href="javascript;;" aria-describedby={id} onClick={handleClick}>
+      <a aria-describedby={id} onClick={handleClick}>
         <Info>
           <strong>{profile.name}</strong>
           <p>{profile.role ?? 'Administrador'}</p>
