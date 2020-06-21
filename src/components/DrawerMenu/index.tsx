@@ -13,6 +13,7 @@ import {
   drawerMenuItems,
   DrawerMenuItemProps,
 } from '../../routes/config/drawerMenu';
+import { dashboardRoute } from '../../routes/config';
 import Profile from './Profile';
 import ListItemLink from './ListItemLink';
 
@@ -26,7 +27,6 @@ const DrawerMenu: React.FC = () => {
     new Map(),
   );
   const { location } = useHistory();
-
   const {
     open,
     drawerMenuStorageState,
@@ -39,8 +39,9 @@ const DrawerMenu: React.FC = () => {
     (itemRoute: string) => {
       if (!itemRoute) return false;
 
-      if (itemRoute === ROOT_ROUTE) {
-        return location.pathname === itemRoute;
+      if (location.pathname === ROOT_ROUTE) {
+        const isDashboardRoute = itemRoute === dashboardRoute.path;
+        return isDashboardRoute;
       }
 
       return location.pathname.startsWith(itemRoute);
@@ -229,7 +230,8 @@ const DrawerMenu: React.FC = () => {
                   isCollapsible={!!item.collapse}
                   collapseIsOpen={selectedCollapsedItems.get(item.name)}
                   onClick={(): void =>
-                    handleClick(item.name, '', !!item.collapse)}
+                    handleClick(item.name, '', !!item.collapse)
+                  }
                 />
                 {item.collapse && (
                   <Collapse
@@ -249,7 +251,8 @@ const DrawerMenu: React.FC = () => {
                             handleClick(
                               colItem.name,
                               colItem.collapseFatherName,
-                            )}
+                            )
+                          }
                         />
                       ))}
                     </List>
