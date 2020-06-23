@@ -61,10 +61,22 @@ export const TableHead = styled(MUITableHead)`
         }
       }
 
+      :first-child {
+        border-top-left-radius: 3px;
+      }
+
       :last-child {
         border: none;
         border-left: 1px solid #777;
         border-bottom: 1px solid #777;
+        border-top-right-radius: 3px;
+      }
+
+      ::after {
+        background-color: #5a4799;
+        opacity: 0.2;
+        border: #fff solid 1px;
+        border-bottom: none;
       }
     }
 
@@ -88,6 +100,8 @@ export const TableCell = styled(Table.Cell)`
 export const PagingPanelContainer = styled(PagingPanel.Container)`
   background-color: #29292e;
   color: #fff;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 
   div {
     color: #fff;
