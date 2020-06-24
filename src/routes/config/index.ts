@@ -1,13 +1,8 @@
-export { signInRoute, SignInRouteComponent } from './signin.route';
-export { signUpRoute, SignUpRouteComponent } from './signup.route';
-export {
-  forgotPasswordRoute,
-  ForgotPasswordRouteComponent,
-} from './forgot-password.route';
-export {
-  resetPasswordRoute,
-  ResetPasswordRouteComponent,
-} from './reset-password.route';
-export { dashboardRoute, DashboardRouteComponent } from './dashboard.route';
-export { financesRoute } from './finances.route';
-export { profileRoute, ProfileRouteComponent } from './profile.route';
+export * from './signin.route';
+export * from './signup.route';
+export * from './forgot-password.route';
+export * from './reset-password.route';
+export * from './dashboard.route';
+export * from './finances.route';
+export * from './profile.route';
+export * from './animals.route';

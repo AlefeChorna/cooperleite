@@ -15,12 +15,14 @@ import {
   ForgotPasswordRouteComponent,
   ResetPasswordRouteComponent,
   ProfileRouteComponent,
+  AnimalsRoutesComponent,
   signInRoute,
   dashboardRoute,
   signUpRoute,
   forgotPasswordRoute,
   resetPasswordRoute,
   profileRoute,
+  animalListRoute,
 } from './config';
 
 interface RoutesProps {
@@ -54,8 +56,11 @@ const AppRoutes: React.FC = () => {
         exact
       />
       <Route path={profileRoute.path} component={ProfileRouteComponent} exact />
-      <Route path="/finances" component={DashboardRouteComponent} exact />
-      <Route path="/incomes" component={DashboardRouteComponent} exact />
+      <Route
+        path={animalListRoute.path}
+        component={AnimalsRoutesComponent}
+        exact
+      />
       <Route component={DashboardRouteComponent} />
     </Switch>
   );

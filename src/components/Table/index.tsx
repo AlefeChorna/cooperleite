@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import {
   SortingState,
   PagingState,
   IntegratedPaging,
   IntegratedSorting,
+  DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -18,6 +19,7 @@ import {
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 import NoDataRow from './components/NoDataRow';
 import Loading from './components/Loading';
+import Actions from './components/Actions';
 
 import {
   Container,
@@ -37,7 +39,7 @@ function generateData() {
       sector: 'Banking',
       channel: 'VARs',
       units: 4,
-      customer: 'Beacon Systems',
+      actions: 'Beacon Systems',
       product: 'EnviroCare Max',
       amount: 46522.35,
       discount: 0.279,
@@ -49,6 +51,8 @@ function generateData() {
   return data;
 }
 
+const actionColumnName = 'actions';
+
 const Table: React.FC = () => {
   const [columns] = useState([
     { name: 'product', title: 'Product' },
@@ -56,16 +60,16 @@ const Table: React.FC = () => {
     { name: 'amount', title: 'Sale Amount' },
     { name: 'discount', title: 'Discount' },
     { name: 'saleDate', title: 'Sale Date' },
-    { name: 'customer', title: 'Customer' },
+    { name: 'actions', title: 'Actions' },
   ]);
   const [rows, setRows] = useState<any>([]);
   const [tableColumnExtensions] = useState([
-    { columnName: 'product' },
+    { columnName: 'product', width: 380 },
     { columnName: 'region', width: 380 },
     { columnName: 'amount', width: 180 },
     { columnName: 'discount', width: 180 },
     { columnName: 'saleDate', width: 180 },
-    { columnName: 'customer', width: 250 },
+    { columnName: 'actions', width: 250 },
   ]);
   const [sorting, setSorting] = useState([]);
   const [addedRows, setAddedRows] = useState([]);
@@ -79,11 +83,18 @@ const Table: React.FC = () => {
     'amount',
     'discount',
     'saleDate',
-    'customer',
+    'actions',
   ]);
+  const [dataProviderKeys] = useState(
+    useMemo(
+      () => columns.map((column) => column.name).concat(actionColumnName),
+      [columns],
+    ),
+  );
+
   const [currencyColumns] = useState(['amount']);
   const [percentColumns] = useState(['discount']);
-  const [rightFixedColumns] = useState(['customer']);
+  const [rightFixedColumns] = useState(['actions']);
   const { drawerMenuStorageState, metrics } = useDrawerMenu();
   const [loading, setLoading] = useState(true);
 
@@ -96,6 +107,23 @@ const Table: React.FC = () => {
   }, []);
 
   const getRowId = useCallback((row: any): number => row.id, []);
+
+  const onFormatterComponent = useCallback(({ value, column }) => {
+    if (column.name === actionColumnName) {
+      return (
+        <Actions
+          actions={['show', 'edit', 'delete']}
+          onDelete={() => {}}
+          paths={{
+            show: '',
+            edit: '',
+          }}
+        />
+      );
+    }
+
+    return <div>{value}</div>;
+  }, []);
 
   return (
     <Container
@@ -118,13 +146,25 @@ const Table: React.FC = () => {
             onPageSizeChange={setPageSize}
           />
 
+          <DataTypeProvider
+            for={dataProviderKeys}
+            formatterComponent={onFormatterComponent}
+          />
+
           <IntegratedSorting />
           <IntegratedPaging />
 
           <DragDropProvider />
 
           <MUITable
-            columnExtensions={tableColumnExtensions}
+            columnExtensions={[
+              { columnName: 'product', width: 380 },
+              { columnName: 'region', width: 380 },
+              { columnName: 'amount', width: 180 },
+              { columnName: 'discount', width: 180 },
+              { columnName: 'saleDate', width: 180 },
+              { columnName: 'actions', width: 250, align: 'center' },
+            ]}
             headComponent={TableHead}
             cellComponent={(props): any => {
               return <TableCell {...props} />;
