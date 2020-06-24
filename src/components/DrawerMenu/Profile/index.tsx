@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <Container>
+    <Container popoverOpen={open ? 1 : 0}>
       <a aria-describedby={id} onClick={handleClick}>
         <Info>
           <strong>{profile.name}</strong>

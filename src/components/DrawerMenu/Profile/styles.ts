@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  popoverOpen: number;
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
   position: relative;
   flex: 1;
@@ -15,6 +19,24 @@ export const Container = styled.div`
     text-decoration: none;
     color: #fff;
     cursor: pointer;
+
+    ${(props): any =>
+      !!props.popoverOpen &&
+      css`
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: calc(100% - 93px);
+          transform: translateX(-50%);
+          width: 0px;
+          height: 0px;
+          border-style: solid;
+          border-width: 0px 7.5px 8px;
+          border-color: transparent transparent #fff;
+        }
+      )
+      `}
   }
 `;
 
@@ -69,16 +91,5 @@ export const PopoverContent = styled.div`
     &:hover {
       background-color: #ddd;
     }
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-color: #fd951f transparent;
-    border-width: 7px 7px 0px 7px;
-    top: 0%;
-    left: 50%;
-    transform: translateX(-45%);
   }
 `;
