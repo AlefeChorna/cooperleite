@@ -83,12 +83,6 @@ export const TableHead = styled(MUITableHead)`
     :last-child {
       display: block;
     }
-
-    & [class^='TableFixedCell-fixedCell'],
-    [class*=' TableFixedCell-fixedCell'] {
-      border-left: 1px solid #777;
-      border-bottom: 1px solid #777;
-    }
   }
 `;
 
@@ -100,12 +94,6 @@ export const TableCell = styled(Table.Cell)`
   :last-child {
     border-left: 1px solid #444;
     border-bottom: 1px solid #444 !important;
-  }
-
-  [class^='TableFixedCell-dividerLeft'],
-  [class*=' TableFixedCell-dividerLeft'] {
-    border-left: 1px solid #777 !important;
-    border-bottom: 1px solid #777;
   }
 `;
 

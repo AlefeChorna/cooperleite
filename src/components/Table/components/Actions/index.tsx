@@ -23,7 +23,7 @@ const Actions: React.FC<ActionsProps> = ({ actions, paths, onDelete }) => {
         <Link to={paths.show}>
           <Tooltip title="Visualizar">
             <IconButton>
-              <IconVisibility htmlColor="#5a4799" />
+              <IconVisibility htmlColor="#27ce7a" />
             </IconButton>
           </Tooltip>
         </Link>
@@ -33,7 +33,7 @@ const Actions: React.FC<ActionsProps> = ({ actions, paths, onDelete }) => {
         <Link to={paths.edit}>
           <Tooltip title="Editar">
             <IconButton>
-              <IconEdit htmlColor="#fa751f" />
+              <IconEdit htmlColor="#fd951f" />
             </IconButton>
           </Tooltip>
         </Link>
@@ -42,7 +42,7 @@ const Actions: React.FC<ActionsProps> = ({ actions, paths, onDelete }) => {
       {actions.includes('delete') && (
         <Tooltip title="Excluir">
           <IconButton onClick={onDelete}>
-            <IconDelete htmlColor="#c35355" />
+            <IconDelete htmlColor="#c95355" />
           </IconButton>
         </Tooltip>
       )}

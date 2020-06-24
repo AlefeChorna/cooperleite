@@ -162,7 +162,6 @@ const Table: React.FC = () => {
               { columnName: 'region', width: 380 },
               { columnName: 'amount', width: 180 },
               { columnName: 'discount', width: 180 },
-              { columnName: 'saleDate', width: 180 },
               { columnName: 'actions', width: 250, align: 'center' },
             ]}
             headComponent={TableHead}
