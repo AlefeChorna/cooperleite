@@ -7,13 +7,15 @@ import IconDelete from '@material-ui/icons/Delete';
 
 import { IconButton } from './styles';
 
-interface ActionsProps {
-  actions: ['show', 'edit', 'delete'];
+type Actions = 'show' | 'edit' | 'delete';
+
+export interface ActionsProps {
+  actions: Actions[];
   paths: {
     show: string;
     edit: string;
   };
-  onDelete(): void;
+  onDelete?: () => void;
 }
 
 const Actions: React.FC<ActionsProps> = ({ actions, paths, onDelete }) => {

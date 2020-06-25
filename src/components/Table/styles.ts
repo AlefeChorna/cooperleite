@@ -51,6 +51,10 @@ export const TableHead = styled(MUITableHead)`
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       background-color: #29292e;
 
+      & .MuiTableSortLabel-root.MuiTableSortLabel-active {
+        color: #fd951f !important;
+      }
+
       span {
         &:hover {
           color: #fd951f;
@@ -58,6 +62,10 @@ export const TableHead = styled(MUITableHead)`
 
         &:focus {
           color: #fd951f;
+        }
+
+        svg {
+          color: #fd951f !important;
         }
       }
 

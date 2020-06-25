@@ -5,6 +5,7 @@ import {
   IntegratedPaging,
   IntegratedSorting,
   DataTypeProvider,
+  Column,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -12,14 +13,13 @@ import {
   TableHeaderRow,
   PagingPanel,
   DragDropProvider,
-  TableColumnReordering,
   TableFixedColumns,
 } from '@devexpress/dx-react-grid-material-ui';
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 import NoDataRow from './components/NoDataRow';
 import Loading from './components/Loading';
-import Actions from './components/Actions';
+import Actions, { ActionsProps } from './components/Actions';
 
 import {
   Container,
@@ -29,101 +29,82 @@ import {
   PagingPanelContainer,
 } from './styles';
 
-function generateData() {
-  const data = [];
-
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      id: i,
-      region: 'South America',
-      sector: 'Banking',
-      channel: 'VARs',
-      units: 4,
-      actions: 'Beacon Systems',
-      product: 'EnviroCare Max',
-      amount: 46522.35,
-      discount: 0.279,
-      saleDate: '2016-02-28',
-      shipped: false,
-    });
-  }
-
-  return data;
-}
-
 const actionColumnName = 'actions';
 
-const Table: React.FC = () => {
-  const [columns] = useState([
-    { name: 'product', title: 'Product' },
-    { name: 'region', title: 'Region' },
-    { name: 'amount', title: 'Sale Amount' },
-    { name: 'discount', title: 'Discount' },
-    { name: 'saleDate', title: 'Sale Date' },
-    { name: 'actions', title: 'Actions' },
-  ]);
+interface ValueFormatterProps {
+  column: Column;
+  row?: any;
+  value: any;
+}
+
+interface TableProps {
+  columns: Column[];
+  columnsProperties: MUITable.ColumnExtension[];
+  customActions?: (row: any) => ActionsProps;
+  dataTypeProvider?: Array<{
+    columnName: string;
+    formatterComponent(data: ValueFormatterProps): React.FC | any;
+  }>;
+}
+
+const Table: React.FC<TableProps> = ({
+  columns,
+  columnsProperties,
+  customActions,
+  dataTypeProvider,
+}) => {
   const [rows, setRows] = useState<any>([]);
-  const [tableColumnExtensions] = useState([
-    { columnName: 'product', width: 380 },
-    { columnName: 'region', width: 380 },
-    { columnName: 'amount', width: 180 },
-    { columnName: 'discount', width: 180 },
-    { columnName: 'saleDate', width: 180 },
-    { columnName: 'actions', width: 250 },
-  ]);
-  const [sorting, setSorting] = useState([]);
-  const [addedRows, setAddedRows] = useState([]);
-  const [rowChanges, setRowChanges] = useState({});
+  const [sorting, setSorting] = useState<any>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
-  const [pageSizes] = useState([5, 10, 0]);
-  const [columnOrder, setColumnOrder] = useState([
-    'product',
-    'region',
-    'amount',
-    'discount',
-    'saleDate',
-    'actions',
-  ]);
+  const [pageSizes] = useState([5, 10, 20]);
   const [dataProviderKeys] = useState(
-    useMemo(
-      () => columns.map((column) => column.name).concat(actionColumnName),
-      [columns],
-    ),
+    useMemo(() => columns.map((column) => column.name), [columns]),
   );
-
-  const [currencyColumns] = useState(['amount']);
-  const [percentColumns] = useState(['discount']);
-  const [rightFixedColumns] = useState(['actions']);
-  const { drawerMenuStorageState, metrics } = useDrawerMenu();
+  const [rightFixedColumns] = useState([actionColumnName]);
   const [loading, setLoading] = useState(true);
+  const { drawerMenuStorageState, metrics } = useDrawerMenu();
 
   useEffect(() => {
     setTimeout(() => {
-      const rowsData = generateData();
-      setRows(rowsData);
       setLoading(false);
     }, 1500);
   }, []);
 
   const getRowId = useCallback((row: any): number => row.id, []);
 
-  const onFormatterComponent = useCallback(({ value, column }) => {
-    if (column.name === actionColumnName) {
-      return (
-        <Actions
-          actions={['show', 'edit', 'delete']}
-          onDelete={() => {}}
-          paths={{
-            show: '',
-            edit: '',
-          }}
-        />
-      );
-    }
+  const onFormatterComponent = useCallback(
+    ({ value, row, column }) => {
+      if (column.name === actionColumnName) {
+        const actions = customActions && customActions(row);
+        return (
+          <Actions
+            actions={[]}
+            paths={{
+              show: '',
+              edit: '',
+            }}
+            {...actions}
+          />
+        );
+      }
 
-    return <div>{value}</div>;
-  }, []);
+      if (dataTypeProvider) {
+        const columnOverride = dataTypeProvider.filter(
+          (colOver) => colOver.columnName === column.name,
+        );
+
+        if (columnOverride.length) {
+          const [{ formatterComponent }] = columnOverride;
+          const asdf = formatterComponent({ value, row, column });
+          return asdf;
+        }
+      }
+
+      return <div>{value}</div>;
+    },
+    [customActions, dataTypeProvider],
+  );
 
   return (
     <Container
@@ -135,9 +116,13 @@ const Table: React.FC = () => {
         <Grid rows={rows} columns={columns} getRowId={getRowId}>
           <SortingState
             sorting={sorting}
-            onSortingChange={(): void => {
-              console.log('chaaa... sorting >>');
-            }}
+            defaultSorting={[
+              {
+                columnName: 'id',
+                direction: 'desc',
+              },
+            ]}
+            onSortingChange={(newSorting): void => setSorting(newSorting)}
           />
           <PagingState
             currentPage={currentPage}
@@ -157,13 +142,7 @@ const Table: React.FC = () => {
           <DragDropProvider />
 
           <MUITable
-            columnExtensions={[
-              { columnName: 'product', width: 380 },
-              { columnName: 'region', width: 380 },
-              { columnName: 'amount', width: 180 },
-              { columnName: 'discount', width: 180 },
-              { columnName: 'actions', width: 250, align: 'center' },
-            ]}
+            columnExtensions={columnsProperties}
             headComponent={TableHead}
             cellComponent={(props): any => {
               return <TableCell {...props} />;
@@ -173,10 +152,6 @@ const Table: React.FC = () => {
               // @ts-ignore
               <NoDataRow loading={loading} colSpan={children?.length || 0} />
             )}
-          />
-          <TableColumnReordering
-            order={columnOrder}
-            onOrderChange={setColumnOrder}
           />
           <TableHeaderRow showSortingControls />
           <TableFixedColumns rightColumns={rightFixedColumns} />
