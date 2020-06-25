@@ -10,7 +10,7 @@ const List: React.FC = () => {
       <Table
         columns={[
           { name: 'id', title: '#' },
-          { name: 'name', title: 'name' },
+          { name: 'name', title: 'Nome' },
           { name: 'breed', title: 'Raça' },
           { name: 'weight', title: 'Peso' },
           { name: 'gender', title: 'Sexo' },

@@ -116,12 +116,6 @@ const Table: React.FC<TableProps> = ({
         <Grid rows={rows} columns={columns} getRowId={getRowId}>
           <SortingState
             sorting={sorting}
-            defaultSorting={[
-              {
-                columnName: 'id',
-                direction: 'desc',
-              },
-            ]}
             onSortingChange={(newSorting): void => setSorting(newSorting)}
           />
           <PagingState
