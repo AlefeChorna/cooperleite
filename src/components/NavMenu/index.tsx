@@ -10,9 +10,21 @@ const NavMenu: React.FC = () => {
     <Container>
       <InputSearch
         onSubmit={() => {}}
-        containerStyle={{ marginRight: 20 }}
+        containerStyle={{ marginRight: 25 }}
         iconColor="#fd951f"
       />
+      <Link to="/animals/edit">
+        <Buttom
+          style={{
+            backgroundColor: '#fd951f',
+            color: '#fff',
+            padding: '7px 20px',
+            marginRight: 15,
+          }}
+        >
+          Editar
+        </Buttom>
+      </Link>
       <Link to="/animals/new">
         <Buttom
           style={{
