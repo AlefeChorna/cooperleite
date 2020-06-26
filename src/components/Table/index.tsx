@@ -20,6 +20,8 @@ import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
 import NoDataRow from './components/NoDataRow';
 import Loading from './components/Loading';
 import Actions, { ActionsProps } from './components/Actions';
+import Request from '../../services/request';
+import Route from '../../services/route';
 
 import {
   Container,
@@ -38,6 +40,9 @@ interface ValueFormatterProps {
 }
 
 interface TableProps {
+  requestOptions: {
+    url: Route;
+  };
   columns: Column[];
   columnsProperties: MUITable.ColumnExtension[];
   customActions?: (row: any) => ActionsProps;
@@ -52,6 +57,7 @@ const Table: React.FC<TableProps> = ({
   columnsProperties,
   customActions,
   dataTypeProvider,
+  requestOptions,
 }) => {
   const [rows, setRows] = useState<any>([]);
   const [sorting, setSorting] = useState<any>([]);
@@ -66,8 +72,11 @@ const Table: React.FC<TableProps> = ({
   const { drawerMenuStorageState, metrics } = useDrawerMenu();
 
   useEffect(() => {
-    setTimeout(() => {
+    setTimeout(async () => {
+      const { url } = requestOptions;
+      const response = await Request.get(url.path);
       setLoading(false);
+      setRows(response.data);
     }, 1500);
   }, []);
 
@@ -90,14 +99,13 @@ const Table: React.FC<TableProps> = ({
       }
 
       if (dataTypeProvider) {
-        const columnOverride = dataTypeProvider.filter(
+        const [columnOverride] = dataTypeProvider.filter(
           (colOver) => colOver.columnName === column.name,
         );
 
-        if (columnOverride.length) {
-          const [{ formatterComponent }] = columnOverride;
-          const asdf = formatterComponent({ value, row, column });
-          return asdf;
+        if (columnOverride) {
+          const { formatterComponent } = columnOverride;
+          return formatterComponent({ value, row, column });
         }
       }
 
@@ -105,6 +113,8 @@ const Table: React.FC<TableProps> = ({
     },
     [customActions, dataTypeProvider],
   );
+
+  const searchRecords = useCallback(() => {}, []);
 
   return (
     <Container

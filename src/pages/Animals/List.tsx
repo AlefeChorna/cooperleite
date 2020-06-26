@@ -1,13 +1,20 @@
 import React from 'react';
 
 import Table from '../../components/Table';
+import NavMenu from '../../components/NavMenu';
+
+import { animalsRouteApi } from '../../routes/config/api';
 
 import { Container } from './styles';
 
 const List: React.FC = () => {
   return (
     <Container>
+      <NavMenu />
       <Table
+        requestOptions={{
+          url: animalsRouteApi,
+        }}
         columns={[
           { name: 'id', title: '#' },
           { name: 'name', title: 'Nome' },
@@ -17,7 +24,7 @@ const List: React.FC = () => {
           { name: 'actions', title: 'Actions' },
         ]}
         columnsProperties={[
-          { columnName: 'id', width: 100 },
+          { columnName: 'id', width: 100, align: 'center' },
           { columnName: 'breed', width: 200 },
           { columnName: 'weight', width: 110 },
           { columnName: 'gender', width: 110 },
