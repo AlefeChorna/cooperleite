@@ -4,13 +4,18 @@ import Table from '../../components/Table';
 import NavMenu from '../../components/NavMenu';
 
 import { animalsRouteApi } from '../../routes/config/api';
+import {
+  animalCreateRoute,
+  animalShowRoute,
+  animalEditRoute,
+} from '../../routes/config';
 
 import { Container } from './styles';
 
 const List: React.FC = () => {
   return (
     <Container>
-      <NavMenu />
+      <NavMenu newRoute={animalCreateRoute.path} showInputSearch />
       <Table
         requestOptions={{
           url: animalsRouteApi,
@@ -30,11 +35,11 @@ const List: React.FC = () => {
           { columnName: 'gender', width: 110 },
           { columnName: 'actions', width: 150, align: 'center' },
         ]}
-        customActions={(rowData) => ({
+        customActions={({ id }) => ({
           actions: ['show', 'edit'],
           paths: {
-            edit: `edit/${rowData.id}`,
-            show: `show/${rowData.id}`,
+            edit: animalEditRoute.build({ id }),
+            show: animalShowRoute.build({ id }),
           },
         })}
         dataTypeProvider={[

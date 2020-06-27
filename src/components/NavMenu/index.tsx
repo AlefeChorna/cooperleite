@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import EditIcon from '@material-ui/icons/Edit';
 import ListItemText from '@material-ui/core/ListItemText';
 import CloneIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -17,7 +16,23 @@ import {
   MenuItem,
 } from './styles';
 
-const NavMenu: React.FC = () => {
+interface NavMenuProps {
+  newRoute?: string;
+  editRoute?: string;
+  optionsButton?: {
+    visible: boolean;
+    cloneRoute?: string;
+    deleteRoute?: string;
+  };
+  showInputSearch?: boolean;
+}
+
+const NavMenu: React.FC<NavMenuProps> = ({
+  newRoute,
+  editRoute,
+  optionsButton,
+  showInputSearch,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   function handleOpenMenuOptions(event: any) {
@@ -30,22 +45,26 @@ const NavMenu: React.FC = () => {
 
   return (
     <Container>
-      <InputSearch
-        onSubmit={() => {}}
-        containerStyle={{ marginRight: 25 }}
-        iconColor="#fd951f"
-      />
+      {!!showInputSearch && (
+        <InputSearch
+          onSubmit={() => {}}
+          containerStyle={{ marginRight: 25 }}
+          iconColor="#fd951f"
+        />
+      )}
 
-      <OptionsButton
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="inherit"
-        onClick={handleOpenMenuOptions}
-        endIcon={<ArrowDropDownIcon style={{ fontSize: 24 }} />}
-      >
-        Opções
-      </OptionsButton>
+      {optionsButton?.visible && (
+        <OptionsButton
+          aria-controls="customized-menu"
+          aria-haspopup="true"
+          variant="contained"
+          color="inherit"
+          onClick={handleOpenMenuOptions}
+          endIcon={<ArrowDropDownIcon style={{ fontSize: 24 }} />}
+        >
+          Opções
+        </OptionsButton>
+      )}
       <Menu
         id="customized-menu"
         anchorEl={anchorEl}
@@ -53,45 +72,55 @@ const NavMenu: React.FC = () => {
         open={Boolean(anchorEl)}
         onClose={handleCloseMenuOptions}
       >
-        <Link to="/EDIT">
-          <MenuItem onClick={handleCloseMenuOptions}>
+        {optionsButton?.cloneRoute && (
+          <Link to={optionsButton?.cloneRoute}>
+            <MenuItem onClick={handleCloseMenuOptions}>
+              <ListItemIcon>
+                <CloneIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText primary="Clonar" />
+            </MenuItem>
+          </Link>
+        )}
+
+        {optionsButton?.deleteRoute && (
+          <MenuItem onClick={() => {}}>
             <ListItemIcon>
-              <CloneIcon fontSize="small" />
+              <DeleteIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText primary="Clonar" />
+            <ListItemText primary="Excluir" />
           </MenuItem>
-        </Link>
-        <MenuItem onClick={() => {}}>
-          <ListItemIcon>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText primary="Excluir" />
-        </MenuItem>
+        )}
       </Menu>
 
-      <Link to="/animals/edit">
-        <Buttom
-          style={{
-            backgroundColor: '#fd951f',
-            color: '#fff',
-            padding: '7px 20px',
-            marginRight: 15,
-          }}
-        >
-          Editar
-        </Buttom>
-      </Link>
-      <Link to="/animals/new">
-        <Buttom
-          style={{
-            backgroundColor: '#4ab46e',
-            color: '#fff',
-            padding: '7px 20px',
-          }}
-        >
-          Novo registro
-        </Buttom>
-      </Link>
+      {!!editRoute && (
+        <Link to={editRoute}>
+          <Buttom
+            style={{
+              backgroundColor: '#fd951f',
+              color: '#fff',
+              padding: '7px 20px',
+              marginRight: 15,
+            }}
+          >
+            Editar
+          </Buttom>
+        </Link>
+      )}
+
+      {!!newRoute && (
+        <Link to={newRoute}>
+          <Buttom
+            style={{
+              backgroundColor: '#4ab46e',
+              color: '#fff',
+              padding: '7px 20px',
+            }}
+          >
+            Novo registro
+          </Buttom>
+        </Link>
+      )}
     </Container>
   );
 };

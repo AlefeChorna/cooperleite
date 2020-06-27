@@ -7,11 +7,11 @@ import { List } from '../../pages/Animals';
 
 export const animalListRoute = new Route('/animals');
 
-export const animalShowRoute = new Route('/animals');
+export const animalShowRoute = new Route('/animals/:id/show');
 
-export const animalEditRoute = new Route('/animals');
+export const animalEditRoute = new Route('/animals/:id/edit');
 
-export const animalCreateRoute = new Route('/animals');
+export const animalCreateRoute = new Route('/animals/new');
 
 export const AnimalsRoutesComponent: React.FC = () => {
   return (
