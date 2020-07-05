@@ -56,11 +56,7 @@ const AppRoutes: React.FC = () => {
         exact
       />
       <Route path={profileRoute.path} component={ProfileRouteComponent} exact />
-      <Route
-        path={animalListRoute.path}
-        component={AnimalsRoutesComponent}
-        exact
-      />
+      <Route path={animalListRoute.path} component={AnimalsRoutesComponent} />
       <Route component={DashboardRouteComponent} />
     </Switch>
   );

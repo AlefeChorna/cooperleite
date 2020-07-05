@@ -53,6 +53,9 @@ export const Drawer = styled(
     transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
     overflow-x: hidden;
     border-right: none;
+    -webkit-box-shadow: 2px 4px 7px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 4px 7px -1px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 4px 7px -1px rgba(0, 0, 0, 0.75);
   }
 `;
 

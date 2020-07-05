@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
+import { MdEdit } from 'react-icons/md';
 import CloneIcon from '@material-ui/icons/FileCopy';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -96,14 +97,24 @@ const NavMenu: React.FC<NavMenuProps> = ({
       {!!editRoute && (
         <Link to={editRoute}>
           <Buttom
+            startIcon={<MdEdit style={{ fontSize: 18, marginBottom: 3 }} />}
+            variant="contained"
             style={{
               backgroundColor: '#fd951f',
               color: '#fff',
-              padding: '7px 20px',
               marginRight: 15,
+              padding: '5px 20px',
             }}
           >
-            Editar
+            <span
+              style={{
+                fontWeight: 600,
+                textTransform: 'none',
+                fontSize: '1rem',
+              }}
+            >
+              Editar
+            </span>
           </Buttom>
         </Link>
       )}
@@ -114,10 +125,18 @@ const NavMenu: React.FC<NavMenuProps> = ({
             style={{
               backgroundColor: '#4ab46e',
               color: '#fff',
-              padding: '7px 20px',
+              padding: '5px 20px',
             }}
           >
-            Novo registro
+            <span
+              style={{
+                fontWeight: 600,
+                textTransform: 'none',
+                fontSize: '1rem',
+              }}
+            >
+              Novo registro
+            </span>
           </Buttom>
         </Link>
       )}

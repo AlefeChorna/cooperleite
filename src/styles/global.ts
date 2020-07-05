@@ -12,6 +12,7 @@ export default createGlobalStyle`
     background-color: #100F12;
     color: #FFF;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   body, input, button {
