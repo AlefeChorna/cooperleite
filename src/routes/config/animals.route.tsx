@@ -3,7 +3,7 @@ import { Switch } from 'react-router-dom';
 
 import Route from '../../services/route';
 import RouteWrapper from '../RouteWrapper';
-import { List, Show } from '../../pages/Animals';
+import { List, Show, Create, Edit } from '../../pages/Animals';
 
 export const animalListRoute = new Route('/animals');
 
@@ -22,8 +22,18 @@ export const AnimalsRoutesComponent: React.FC = () => {
         component={Show}
         isPrivate
       />
-      {/* <RouteWrapper path={animalEditRoute.path} exact component={Edit} isPrivate />
-      <RouteWrapper path={animalCreateRoute.path} exact component={Create} isPrivate /> */}
+      <RouteWrapper
+        path={animalEditRoute.path}
+        exact
+        component={Edit}
+        isPrivate
+      />
+      <RouteWrapper
+        path={animalCreateRoute.path}
+        exact
+        component={Create}
+        isPrivate
+      />
 
       <RouteWrapper
         path={animalListRoute.path}

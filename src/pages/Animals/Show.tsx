@@ -1,24 +1,28 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import NavMenu from '../../components/NavMenu';
-import FooterActions from '../../components/FooterActions';
+import LayoutShow from '../../components/Layouts/Show';
 
-import { animalCreateRoute, animalEditRoute } from '../../routes/config';
-
-import { Container } from './styles';
+import {
+  animalListRoute,
+  animalCreateRoute,
+  animalEditRoute,
+} from '../../routes/config';
 
 const Show: React.FC = () => {
   const { id } = useParams();
 
   return (
-    <Container>
-      <NavMenu
-        newRoute={animalCreateRoute.path}
-        editRoute={animalEditRoute.build({ id })}
-      />
-      <FooterActions />
-    </Container>
+    <LayoutShow
+      breadcrumbs={[
+        { path: animalListRoute.path, text: 'Animais' },
+        { text: 'Visualizar Animal' },
+      ]}
+      navMenuProps={{
+        newRoute: animalCreateRoute.path,
+        editRoute: animalEditRoute.build({ id }),
+      }}
+    />
   );
 };
 

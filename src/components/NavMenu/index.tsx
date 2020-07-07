@@ -17,7 +17,7 @@ import {
   MenuItem,
 } from './styles';
 
-interface NavMenuProps {
+export interface NavMenuProps {
   newRoute?: string;
   editRoute?: string;
   optionsButton?: {

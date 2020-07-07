@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Table from '../../components/Table';
-import NavMenu from '../../components/NavMenu';
+import LayoutList from '../../components/Layouts/List';
 
 import { animalsRouteApi } from '../../routes/config/api';
 import {
@@ -10,43 +9,52 @@ import {
   animalEditRoute,
 } from '../../routes/config';
 
-import { Container } from './styles';
-
 const List: React.FC = () => {
   return (
-    <Container>
-      <NavMenu newRoute={animalCreateRoute.path} showInputSearch />
-      <Table
-        requestOptions={{
+    <LayoutList
+      breadcrumbs={[{ text: 'Animais' }]}
+      navMenuProps={{
+        newRoute: animalCreateRoute.path,
+      }}
+      tableProps={{
+        requestOptions: {
           url: animalsRouteApi,
-        }}
-        columns={[
-          { name: 'id', title: '#' },
+        },
+        columns: [
+          { name: 'id', title: 'Código' },
           { name: 'name', title: 'Nome' },
+          { name: 'earring_number', title: 'Nº do Brinco' },
+          { name: 'gender', title: 'Sexo' },
           { name: 'breed', title: 'Raça' },
           { name: 'weight', title: 'Peso' },
-          { name: 'gender', title: 'Sexo' },
           { name: 'actions', title: 'Actions' },
-        ]}
-        columnsProperties={[
-          { columnName: 'id', width: 100, align: 'center' },
+        ],
+        columnsProperties: [
+          { columnName: 'id', width: 110 },
+          { columnName: 'earring_number', width: 130 },
+          { columnName: 'gender', width: 110 },
           { columnName: 'breed', width: 200 },
           { columnName: 'weight', width: 110 },
-          { columnName: 'gender', width: 110 },
           { columnName: 'actions', width: 150, align: 'center' },
-        ]}
-        customActions={({ id }) => ({
+        ],
+        customActions: ({ id }): any => ({
           actions: ['show', 'edit'],
           paths: {
             edit: animalEditRoute.build({ id }),
             show: animalShowRoute.build({ id }),
           },
-        })}
-        dataTypeProvider={[
+        }),
+        dataTypeProvider: [
           {
             columnName: 'id',
             formatterComponent: ({ row }) => (
               <div>{String(row.id).padStart(6, '0')}</div>
+            ),
+          },
+          {
+            columnName: 'earring_number',
+            formatterComponent: ({ row }) => (
+              <div>{String(row.earring_number).padStart(6, '0')}</div>
             ),
           },
           {
@@ -56,12 +64,12 @@ const List: React.FC = () => {
           {
             columnName: 'gender',
             formatterComponent: ({ row }) => (
-              <div>{row.gender === 'M' ? 'Masculino' : 'Femenino'}</div>
+              <div>{row.gender === 'M' ? 'Macho' : 'Fêmea'}</div>
             ),
           },
-        ]}
-      />
-    </Container>
+        ],
+      }}
+    />
   );
 };
 

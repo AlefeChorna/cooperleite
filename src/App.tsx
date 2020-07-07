@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Routes from './routes';
 import { ThemeProvider } from './hooks/ThemeContext';
+import { BreadcrumbsProvider } from './hooks/BreadcrumbsContext';
 import history from './services/history';
 import GlobalStyle from './styles/global';
 import { store, persistor } from './store';
@@ -18,8 +19,10 @@ const App: React.FC = () => {
       <PersistGate persistor={persistor}>
         <Router history={history}>
           <ThemeProvider>
-            <GlobalStyle />
-            <Routes />
+            <BreadcrumbsProvider>
+              <GlobalStyle />
+              <Routes />
+            </BreadcrumbsProvider>
             <ToastContainer />
           </ThemeProvider>
         </Router>

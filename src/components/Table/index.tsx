@@ -3,6 +3,7 @@ import {
   SortingState,
   PagingState,
   IntegratedPaging,
+  CustomPaging,
   IntegratedSorting,
   DataTypeProvider,
   Column,
@@ -39,7 +40,7 @@ interface ValueFormatterProps {
   value: any;
 }
 
-interface TableProps {
+export interface TableProps {
   requestOptions: {
     url: Route;
   };
@@ -64,6 +65,7 @@ const Table: React.FC<TableProps> = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(5);
   const [pageSizes] = useState([5, 10, 20]);
+  const [total, setTotal] = useState(0);
   const [dataProviderKeys] = useState(
     useMemo(() => columns.map((column) => column.name), [columns]),
   );
@@ -76,9 +78,10 @@ const Table: React.FC<TableProps> = ({
       const { url } = requestOptions;
       const response = await Request.get(url.path);
       setLoading(false);
-      setRows(response.data);
+      setRows(response.data.data);
+      setTotal(response.data.meta.total);
     }, 1500);
-  }, []);
+  }, [requestOptions]);
 
   const getRowId = useCallback((row: any): number => row.id, []);
 
@@ -160,8 +163,8 @@ const Table: React.FC<TableProps> = ({
           <TableHeaderRow showSortingControls />
           <TableFixedColumns rightColumns={rightFixedColumns} />
           <PagingPanel
-            containerComponent={(props): any => {
-              return <PagingPanelContainer {...props} />;
+            containerComponent={({ totalCount, ...props }): any => {
+              return <PagingPanelContainer {...props} totalCount={total} />;
             }}
             messages={{
               showAll: 'Tudo',
