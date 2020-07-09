@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import {
   SortingState,
   PagingState,
-  IntegratedPaging,
   CustomPaging,
   IntegratedSorting,
   DataTypeProvider,
@@ -16,8 +15,10 @@ import {
   DragDropProvider,
   TableFixedColumns,
 } from '@devexpress/dx-react-grid-material-ui';
+import { toast } from 'react-toastify';
 
 import { useDrawerMenu } from '../../hooks/DrawerMenuContext';
+import { useQueryParams } from '../../hooks/QueryParamsContext';
 import NoDataRow from './components/NoDataRow';
 import Loading from './components/Loading';
 import Actions, { ActionsProps } from './components/Actions';
@@ -62,26 +63,39 @@ const Table: React.FC<TableProps> = ({
 }) => {
   const [rows, setRows] = useState<any>([]);
   const [sorting, setSorting] = useState<any>([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState(5);
   const [pageSizes] = useState([5, 10, 20]);
-  const [total, setTotal] = useState(0);
   const [dataProviderKeys] = useState(
     useMemo(() => columns.map((column) => column.name), [columns]),
   );
   const [rightFixedColumns] = useState([actionColumnName]);
   const [loading, setLoading] = useState(true);
   const { drawerMenuStorageState, metrics } = useDrawerMenu();
+  const { params, setParams } = useQueryParams();
+  const requestSource = useMemo(() => Request.CancelToken.source(), []);
 
-  useEffect(() => {
-    setTimeout(async () => {
+  const setError = useCallback((message: string): void => {
+    toast.error(message);
+    setLoading(false);
+  }, []);
+
+  const searchRecords = useCallback(async () => {
+    try {
       const { url } = requestOptions;
-      const response = await Request.get(url.path);
+      setLoading(true);
+      const response = await Request.get(url.getPath(), {
+        cancelToken: requestSource.token,
+      });
       setLoading(false);
       setRows(response.data.data);
-      setTotal(response.data.meta.total);
-    }, 1500);
-  }, [requestOptions]);
+      setParams({ total: response.data.meta.total });
+    } catch (error) {
+      if (!Request.isCancel(error)) {
+        setError(
+          'Não foi possível buscar os dados. Tente novamente mais tarde!',
+        );
+      }
+    }
+  }, [requestOptions, requestSource, setParams, setError]);
 
   const getRowId = useCallback((row: any): number => row.id, []);
 
@@ -117,7 +131,17 @@ const Table: React.FC<TableProps> = ({
     [customActions, dataTypeProvider],
   );
 
-  const searchRecords = useCallback(() => {}, []);
+  useEffect(
+    () => (): void => {
+      requestSource.cancel('Table component unmounted');
+    },
+    [requestSource],
+  );
+
+  useEffect(() => {
+    searchRecords();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.page, params.per_page]);
 
   return (
     <Container
@@ -129,14 +153,25 @@ const Table: React.FC<TableProps> = ({
         <Grid rows={rows} columns={columns} getRowId={getRowId}>
           <SortingState
             sorting={sorting}
-            onSortingChange={(newSorting): void => setSorting(newSorting)}
+            onSortingChange={([newSorting]): void => {
+              setParams({
+                sort: newSorting.columnName,
+                direction: newSorting.direction,
+              });
+              setSorting([newSorting]);
+            }}
           />
           <PagingState
-            currentPage={currentPage}
-            onCurrentPageChange={setCurrentPage}
-            pageSize={pageSize}
-            onPageSizeChange={setPageSize}
+            currentPage={params.page}
+            onCurrentPageChange={(newPage): void => {
+              setParams({ page: newPage });
+            }}
+            pageSize={params.per_page}
+            onPageSizeChange={(perPage): void => {
+              setParams({ per_page: perPage });
+            }}
           />
+          <CustomPaging totalCount={params.total} />
 
           <DataTypeProvider
             for={dataProviderKeys}
@@ -144,7 +179,6 @@ const Table: React.FC<TableProps> = ({
           />
 
           <IntegratedSorting />
-          <IntegratedPaging />
 
           <DragDropProvider />
 
@@ -164,7 +198,9 @@ const Table: React.FC<TableProps> = ({
           <TableFixedColumns rightColumns={rightFixedColumns} />
           <PagingPanel
             containerComponent={({ totalCount, ...props }): any => {
-              return <PagingPanelContainer {...props} totalCount={total} />;
+              return (
+                <PagingPanelContainer {...props} totalCount={params.total} />
+              );
             }}
             messages={{
               showAll: 'Tudo',

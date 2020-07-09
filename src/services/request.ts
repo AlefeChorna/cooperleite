@@ -97,6 +97,11 @@ class Request {
 
       return response;
     } catch (error) {
+      const requestIsCanceled = !error.response;
+      if (requestIsCanceled) {
+        return Promise.reject(error);
+      }
+
       const { status, data: errorData } = error.response;
 
       if (status === Request.HTTP_STATUS.UNAUTHORIZED) {

@@ -67,7 +67,7 @@
       "error",
       {
         "props": true,
-        "ignorePropertyModificationsFor": ["draft"]
+        "ignorePropertyModificationsFor": ["draft", "newParams"]
       }
     ]
   },

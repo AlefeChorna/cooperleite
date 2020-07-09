@@ -4,7 +4,7 @@ import QueryString, { ParsedQuery } from 'query-string';
 import history from './history';
 
 interface RouteParams {
-  [key: string]: string;
+  [key: string]: string | number;
 }
 
 interface SetParamsProps {
@@ -50,7 +50,7 @@ export default class Route extends PathParser {
     const newParams: RouteParams = {};
 
     Object.keys(params).forEach((param: string) => {
-      const paramValue = params[param];
+      const paramValue = String(params[param]);
 
       if (!invalidValues.includes(paramValue)) {
         newParams[param] = paramValue;

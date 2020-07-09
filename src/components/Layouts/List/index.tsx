@@ -5,6 +5,7 @@ import { NavMenuProps } from '../../NavMenu';
 import LayoutBase from '../Base';
 
 import { BreadcrumbProps } from '../../../hooks/BreadcrumbsContext';
+import { QueryParamsProvider } from '../../../hooks/QueryParamsContext';
 
 interface LayoutListProps {
   breadcrumbs: BreadcrumbProps[];
@@ -19,11 +20,13 @@ const List: React.FC<LayoutListProps> = ({
   children,
 }) => {
   return (
-    <LayoutBase breadcrumbs={breadcrumbs} navMenuProps={navMenuProps}>
-      <Table {...tableProps} />
+    <QueryParamsProvider>
+      <LayoutBase breadcrumbs={breadcrumbs} navMenuProps={navMenuProps}>
+        <Table {...tableProps} />
 
-      {children}
-    </LayoutBase>
+        {children}
+      </LayoutBase>
+    </QueryParamsProvider>
   );
 };
 
