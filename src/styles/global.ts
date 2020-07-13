@@ -47,6 +47,7 @@ export default createGlobalStyle`
     background: #29292e;
     padding-left: 2px;
   }
+
   *::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 6px;

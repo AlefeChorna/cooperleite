@@ -34,6 +34,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-text-mask": "^5.4.3",
     "react-toastify": "^5.5.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@types/color": "^3.0.1",
+    "@types/react-text-mask": "^5.4.6",
     "@types/styled-components": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
