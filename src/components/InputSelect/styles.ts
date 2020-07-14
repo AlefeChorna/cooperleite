@@ -21,7 +21,7 @@ export const FormControl = styled(MUIFormControl)`
   }
 
   &
-    .MuiOutlinedInput-root:hover:not(:focus-within)
+    .MuiOutlinedInput-root:hover:not(:focus-within):not(.Mui-error)
     .MuiOutlinedInput-notchedOutline {
     border-color: #777;
   }
@@ -35,12 +35,12 @@ export const FormControl = styled(MUIFormControl)`
     font-size: 11px;
   }
 
-  &:hover p,
+  &:hover p:not(.Mui-error),
   label {
     color: #ccc;
   }
 
-  &:focus-within p {
+  &:focus-within p:not(.Mui-error) {
     color: #fd951f;
   }
 `;

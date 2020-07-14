@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import { useField } from '@unform/core';
 
 import { FormControl } from './styles';
 
-const InputSelect: React.FC = () => {
+interface Options {
+  id: string | number;
+  value: string | number;
+}
+
+interface InputSelectProps {
+  label: string;
+  name: string;
+  options: Options[];
+  defaultOptionText?: string;
+  helperText?: string;
+}
+
+const InputSelect: React.FC<InputSelectProps> = ({
+  label,
+  name,
+  options,
+  defaultOptionText = 'Selecione uma opção',
+  helperText = 'Campo Obrigatório',
+}) => {
   const [state, setState] = React.useState<number | string>('');
+  const { fieldName, defaultValue, registerField, error } = useField(name);
+  const inputRef = useRef<any>(null);
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: inputRef.current,
+      getValue: () => state,
+      setValue: (_, newValue) => {
+        setState(newValue || 'none');
+      },
+    });
+  }, [fieldName, registerField, state]);
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>,
@@ -16,23 +49,28 @@ const InputSelect: React.FC = () => {
 
   return (
     <FormControl variant="outlined">
-      <InputLabel htmlFor="outlined-age-native-simple">Age</InputLabel>
+      <InputLabel error={!!error}>{label}</InputLabel>
       <Select
+        ref={inputRef}
         native
+        label={label}
+        name={name}
         value={state}
-        onChange={handleChange}
-        label="Age"
         inputProps={{
-          id: 'outlined-age-native-simple',
-          name: 'age',
+          ref: inputRef,
+          defaultValue,
         }}
+        onChange={handleChange}
+        error={!!error}
       >
-        <option value="s">Selecione uma opção</option>
-        <option value="10">Ten</option>
-        <option value="20">Twenty</option>
-        <option value="30">Thirty</option>
+        {!!helperText && <option value="none">{defaultOptionText}</option>}
+        {options.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.value}
+          </option>
+        ))}
       </Select>
-      <FormHelperText>Campo Obrigatório</FormHelperText>
+      <FormHelperText error={!!error}>{error || helperText}</FormHelperText>
     </FormControl>
   );
 };

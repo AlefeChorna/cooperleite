@@ -12,6 +12,9 @@ interface InputProps extends BaseTextFieldProps {
   inputMask?: Mask | ((value: string) => Mask);
 }
 
+const anyCharacterRegEx = /./;
+const defaultMask = Array(100).fill(anyCharacterRegEx);
+
 const MUInput: React.FC<InputProps> = ({
   name,
   inputMask,
@@ -27,11 +30,14 @@ const MUInput: React.FC<InputProps> = ({
       name: fieldName,
       ref: inputRef.current,
       path: 'props.value',
-      clearValue: (ref) => {
-        ref.setInputValue(undefined);
+      setValue: (_, newValue) => {
+        setMask(newValue);
+      },
+      clearValue: (ref, newValue) => {
+        ref.setInputValue(newValue);
       },
     });
-  }, [fieldName, registerField]);
+  }, [fieldName, registerField, setMask]);
 
   const handleMask = useCallback((e: any) => {
     const { value } = e.target;
@@ -41,7 +47,7 @@ const MUInput: React.FC<InputProps> = ({
   return (
     <MaskedInput
       ref={inputRef}
-      mask={inputMask || false}
+      mask={inputMask || defaultMask}
       guide={false}
       value={mask}
       onChange={handleMask}

@@ -37,8 +37,19 @@ const Show: React.FC = () => {
       <Form
         ref={formRef}
         onSubmit={(as) => {
-          console.log('==> ', as);
-          formRef.current?.setFieldError('name', 'Campo Obrigatório');
+          console.log('submit data ==> ', as);
+          formRef.current?.setErrors({
+            name: 'Campo Obrigatório - Nome',
+            gender: 'Campo Obrigatório - Sexo',
+            earring_number: 'Campo Obrigatório - Brinco',
+            weight: 'Campo Obrigatório - Peso',
+          });
+          formRef.current?.setData({
+            name: 'Theo',
+            gender: 'M',
+            earring_number: '12',
+            weight: '3,5',
+          });
         }}
       >
         <InputGroup>
@@ -60,7 +71,14 @@ const Show: React.FC = () => {
             />
           </Col>
           <Col xs={12} sm={6} md={6}>
-            <InputSelect />
+            <InputSelect
+              label="Sexo"
+              name="gender"
+              options={[
+                { id: 'M', value: 'Macho' },
+                { id: 'F', value: 'Fêmea' },
+              ]}
+            />
           </Col>
           <Col xs={12} sm={6} md={6}>
             <Input
