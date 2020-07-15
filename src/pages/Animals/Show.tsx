@@ -8,6 +8,7 @@ import InputGroup from '../../components/InputGroup';
 import Col from '../../components/Col';
 import Input from '../../components/MUInput';
 import InputSelect from '../../components/InputSelect';
+import Checkbox from '../../components/Checkbox';
 
 import {
   animalListRoute,
@@ -36,24 +37,22 @@ const Show: React.FC = () => {
     >
       <Form
         ref={formRef}
-        onSubmit={(as) => {
-          console.log('submit data ==> ', as);
+        onSubmit={(data) => {
+          console.log('submit data ==> ', data);
           formRef.current?.setErrors({
-            name: 'Campo Obrigatório - Nome',
-            gender: 'Campo Obrigatório - Sexo',
-            earring_number: 'Campo Obrigatório - Brinco',
-            weight: 'Campo Obrigatório - Peso',
+            name: 'Campo Obrigatório',
+            gender: 'Campo Obrigatório',
+            earring_number: 'Campo Obrigatório',
+            weight: 'Campo Obrigatório',
           });
           formRef.current?.setData({
-            name: 'Theo',
-            gender: 'M',
-            earring_number: '12',
-            weight: '3,5',
+            name: 'Mimosa',
+            lactating: true,
           });
         }}
       >
         <InputGroup>
-          <Col xs={12} sm={12} md={6}>
+          <Col xs={12} sm={12} md={12}>
             <Input
               name="name"
               label="Nome"
@@ -61,7 +60,7 @@ const Show: React.FC = () => {
               autoComplete="off"
             />
           </Col>
-          <Col xs={12} sm={12} md={6}>
+          <Col xs={12} sm={6} md={6}>
             <Input
               name="earring_number"
               inputMask={earringNumberMask}
@@ -89,8 +88,18 @@ const Show: React.FC = () => {
               defaultValue="0"
             />
           </Col>
+          <Col xs={12} sm={6} md={6}>
+            <Input name="breed" label="Raça" />
+          </Col>
+          <Col xs={12} sm={6} md={6}>
+            <Checkbox
+              name="lactating"
+              label="Lactante (Esta produzindo leite)"
+            />
+          </Col>
         </InputGroup>
-        <button type="submit">dfsd</button>
+
+        <button type="submit">sasd</button>
       </Form>
     </LayoutShow>
   );
