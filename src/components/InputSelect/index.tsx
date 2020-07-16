@@ -39,7 +39,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
         setState(newValue || 'none');
       },
     });
-  }, [fieldName, registerField, state]);
+  }, [fieldName, registerField, state, setState]);
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>,

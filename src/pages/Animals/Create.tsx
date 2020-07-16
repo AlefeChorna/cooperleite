@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { FormHandles } from '@unform/core';
 
 import LayoutCreate from '../../components/Layouts/Create';
+import Form from './Form';
 
 import { animalListRoute } from '../../routes/config';
 
 const Create: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
+
   return (
     <LayoutCreate
       breadcrumbs={[
@@ -15,7 +19,9 @@ const Create: React.FC = () => {
         onCancelRoute: animalListRoute.path,
         onSubmit: () => alert('Creating...'),
       }}
-    />
+    >
+      <Form formRef={formRef} />
+    </LayoutCreate>
   );
 };
 

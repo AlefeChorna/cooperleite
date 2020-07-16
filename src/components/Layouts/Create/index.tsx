@@ -22,6 +22,7 @@ const Create: React.FC<LayoutShowProps> = ({
         visible: false,
       }}
     >
+      <div style={{ height: 30 }} />
       {children}
 
       <FooterActions {...footerActionsProps} />
