@@ -59,7 +59,9 @@ const List: React.FC = () => {
           },
           {
             columnName: 'weight',
-            formatterComponent: ({ row }) => <div>{`${row.weight} KG`}</div>,
+            formatterComponent: ({ row }) => (
+              <div>{`${row.weight || 0} KG`}</div>
+            ),
           },
           {
             columnName: 'gender',

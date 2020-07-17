@@ -18,7 +18,7 @@ const HTTP_METHOD = {
   DEL: 'delete',
 };
 
-const HTTP_STATUS = {
+export const HTTP_STATUS = {
   UNAUTHORIZED: 401,
   UNPROCESSABLE_ENTITY: 422,
 };

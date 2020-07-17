@@ -52,4 +52,21 @@ export default createGlobalStyle`
     background-color: #888;
     border-radius: 6px;
   }
+
+  .Toastify__toast--default {
+      background: #fff;
+      color: #aaa;
+  }
+  .Toastify__toast--info {
+    background: #00CBCC;
+  }
+  .Toastify__toast--success {
+    background: #4ab46e;
+  }
+  .Toastify__toast--warning {
+    background: #fd951f;
+  }
+  .Toastify__toast--error {
+    background: #c35355;
+  }
 `;
