@@ -25,6 +25,9 @@ export const HTTP_STATUS = {
 
 const api: AxiosInstance = axios.create({
   baseURL: 'http://192.168.0.102:3333',
+  timeout: 15000,
+  timeoutErrorMessage:
+    'Houston nós temos um problema na conexão. Tente novmente mais tarde',
 });
 
 class Request {

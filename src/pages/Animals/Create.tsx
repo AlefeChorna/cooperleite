@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -14,10 +14,12 @@ import Request from '../../services/request';
 import history from '../../services/history';
 
 const Create: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async () => {
     try {
+      setLoading(true);
       formRef.current?.setErrors({});
 
       const formData: any = formRef.current?.getData();
@@ -39,9 +41,12 @@ const Create: React.FC = () => {
         history.replace(animalShowRoute.build({ id: data.id }), null);
         toast.success('Animal criado com sucesso!');
       }
+
+      setLoading(false);
     } catch (err) {
       const validationErrors = getValidationsErrors(err);
       formRef.current?.setErrors(validationErrors);
+      setLoading(false);
     }
   }, []);
 
@@ -52,6 +57,7 @@ const Create: React.FC = () => {
         { text: 'Cadastrar Animal' },
       ]}
       footerActionsProps={{
+        loading,
         onCancelRoute: animalListRoute.path,
         onSubmit: handleSubmit,
       }}

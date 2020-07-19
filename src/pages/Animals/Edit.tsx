@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -19,11 +19,13 @@ import Request from '../../services/request';
 import history from '../../services/history';
 
 const Edit: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
   const { id: animalId } = useParams();
 
   const handleSubmit = useCallback(async () => {
     try {
+      setLoading(true);
       formRef.current?.setErrors({});
 
       const formData: any = formRef.current?.getData();
@@ -49,9 +51,12 @@ const Edit: React.FC = () => {
         history.replace(animalShowRoute.build({ id: data.id }), null);
         toast.success('Animal editado com sucesso!');
       }
+
+      setLoading(false);
     } catch (err) {
       const validationErrors = getValidationsErrors(err);
       formRef.current?.setErrors(validationErrors);
+      setLoading(false);
     }
   }, [animalId]);
 
@@ -65,6 +70,7 @@ const Edit: React.FC = () => {
         newRoute: animalCreateRoute.path,
       }}
       footerActionsProps={{
+        loading,
         onCancelRoute: animalListRoute.path,
         onSubmit: handleSubmit,
       }}

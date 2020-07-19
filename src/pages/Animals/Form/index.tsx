@@ -8,7 +8,6 @@ import Col from '../../../components/Col';
 import Input from '../../../components/MUInput';
 import InputSelect from '../../../components/InputSelect';
 import Checkbox from '../../../components/Checkbox';
-import Spinner from '../../../components/Spinner';
 
 import Request from '../../../services/request';
 import createNumberMask from '../../../utils/createNumberMask';
@@ -49,7 +48,7 @@ const FormComponent: React.FC<FormProps> = ({
         } catch (err) {
           setLoading(false);
           toast.error(
-            'Não foi possível carregar os dados. Tente novamente mais tarde!',
+            'Não foi possível carregar as informações. Tente novamente mais tarde!',
           );
         }
       }
