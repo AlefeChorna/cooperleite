@@ -13,9 +13,22 @@ import Request from '../../../services/request';
 import createNumberMask from '../../../utils/createNumberMask';
 import { animalsRouteApi } from '../../../routes/config/api';
 import formatNumberToInput from '../../../utils/formatNumberToInput';
+import formatDateToInput from '../../../utils/formatDateToInput';
 
 const weightMask = createNumberMask();
 const earringNumberMask = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+const dateBirthMask = [
+  /\d/,
+  /\d/,
+  '/',
+  /\d/,
+  /\d/,
+  '/',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];
 
 interface FormProps {
   isShowPage?: boolean;
@@ -39,6 +52,7 @@ const FormComponent: React.FC<FormProps> = ({
           if (response.data) {
             Object.assign(response.data, {
               weight: formatNumberToInput(response.data.weight),
+              date_birth: formatDateToInput(response.data.date_birth),
             });
 
             formRef.current?.setData(response.data);
@@ -59,7 +73,7 @@ const FormComponent: React.FC<FormProps> = ({
 
   return (
     <Form formRef={formRef} loading={loading} disabledForm={isShowPage}>
-      <Col xs={12} sm={12} md={12}>
+      <Col xs={12} sm={6} md={6}>
         <Input
           name="name"
           label="Nome"
@@ -98,7 +112,14 @@ const FormComponent: React.FC<FormProps> = ({
       <Col xs={12} sm={6} md={6}>
         <Input name="breed" label="Raça" />
       </Col>
-      <Col xs={12} sm={12} md={12}>
+      <Col xs={12} sm={6} md={6}>
+        <Input
+          name="date_birth"
+          label="Data de Nascimento"
+          inputMask={dateBirthMask}
+        />
+      </Col>
+      <Col xs={12} sm={6} md={6}>
         <Checkbox name="lactating" label="Lactante (Esta produzindo leite)" />
       </Col>
     </Form>
