@@ -14,6 +14,7 @@ import {
 } from '../../routes/config';
 import { animalsRouteApi } from '../../routes/config/api';
 import getValidationsErrors from '../../utils/getValidationsErrors';
+import formatNumberToAPI from '../../utils/formatNumberToAPI';
 import Request from '../../services/request';
 import history from '../../services/history';
 
@@ -33,7 +34,7 @@ const Edit: React.FC = () => {
       });
 
       Object.assign(formData, {
-        weight: formData?.weight || 0,
+        weight: formatNumberToAPI(formData?.weight) || 0,
         breed: formData?.breed ?? '',
       });
 

@@ -9,6 +9,7 @@ import Form from './Form';
 import { animalListRoute, animalShowRoute } from '../../routes/config';
 import { animalsRouteApi } from '../../routes/config/api';
 import getValidationsErrors from '../../utils/getValidationsErrors';
+import formatNumberToAPI from '../../utils/formatNumberToAPI';
 import Request from '../../services/request';
 import history from '../../services/history';
 
@@ -24,6 +25,10 @@ const Create: React.FC = () => {
         name: Yup.string().required('Campo obrigatório'),
         earring_number: Yup.number().required('Campo obrigatório'),
         gender: Yup.string().oneOf(['M', 'F'], 'Campo obrigatório'),
+      });
+
+      Object.assign(formData, {
+        weight: formatNumberToAPI(formData?.weight) || 0,
       });
 
       await schema.validate(formData, { abortEarly: false });
