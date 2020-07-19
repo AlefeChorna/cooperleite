@@ -32,10 +32,16 @@ const Edit: React.FC = () => {
         gender: Yup.string().oneOf(['M', 'F'], 'Campo obrigatório'),
       });
 
-      Object.assign(formData, { id: animalId });
+      Object.assign(formData, {
+        weight: formData?.weight || 0,
+        breed: formData?.breed ?? '',
+      });
 
       await schema.validate(formData, { abortEarly: false });
-      const response = await Request.put(animalsRouteApi.path, formData);
+      const response = await Request.put(
+        `${animalsRouteApi.path}/${animalId}`,
+        formData,
+      );
 
       if (response.data) {
         const { data } = response;
@@ -46,7 +52,7 @@ const Edit: React.FC = () => {
       const validationErrors = getValidationsErrors(err);
       formRef.current?.setErrors(validationErrors);
     }
-  }, []);
+  }, [animalId]);
 
   return (
     <LayoutEdit
