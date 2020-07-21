@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Buttom from '@material-ui/core/Button';
 
-import InputSearch from '../InputSearch';
+import InputSearch from '../Input/Search';
 
 import {
   Container,

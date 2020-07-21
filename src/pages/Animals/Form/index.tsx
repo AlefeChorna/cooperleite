@@ -4,7 +4,6 @@ import { FormHandles } from '@unform/core';
 import { toast } from 'react-toastify';
 
 import Form from '../../../components/Form';
-import Col from '../../../components/Col';
 import InputText from '../../../components/Input/Text';
 import InputSelect from '../../../components/Input/Select';
 import Checkbox from '../../../components/Input/Checkbox';
