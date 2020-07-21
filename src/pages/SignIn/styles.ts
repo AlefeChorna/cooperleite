@@ -1,6 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 
+import FormComponent from '../../components/Form';
+
 import signInBackgroundImg from '../../assets/signin-background.jpg';
 
 export const Container = styled.div`
@@ -72,6 +74,16 @@ export const AnimationContainer = styled.div`
     &:hover {
       color: ${shade(0.2, '#fd951f')};
     }
+  }
+`;
+
+export const Form = styled(FormComponent)`
+  & .MuiGrid-spacing-xs-2 > .MuiGrid-item {
+    padding: 0 0 9px 0;
+  }
+
+  div {
+    justify-content: center;
   }
 `;
 

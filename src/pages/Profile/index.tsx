@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FiUser, FiMail, FiLock, FiCamera } from 'react-icons/fi';
 import * as Yup from 'yup';
 
-import Input from '../../components/Input';
+import InputText from '../../components/Input/Text';
 import Button from '../../components/Button';
 import getValidationsErrors from '../../utils/getValidationsErrors';
 import {
@@ -109,26 +109,36 @@ const Dashboard: React.FC = () => {
 
           <h1>Meu perfil</h1>
 
-          <Input icon={FiUser} name="name" type="name" placeholder="Nome" />
-          <Input icon={FiMail} name="email" type="email" placeholder="E-mail" />
+          <InputText
+            // icon={FiUser}
+            name="name"
+            type="name"
+            placeholder="Nome"
+          />
+          <InputText
+            // icon={FiMail}
+            name="email"
+            type="email"
+            placeholder="E-mail"
+          />
 
-          <Input
-            containetStyle={{ marginTop: 25 }}
-            icon={FiLock}
+          <InputText
+            // containetStyle={{ marginTop: 25 }}
+            // icon={FiLock}
             name="old_password"
             type="password"
             placeholder="Digite sua senha atual"
             autoComplete="on"
           />
-          <Input
-            icon={FiLock}
+          <InputText
+            // icon={FiLock}
             name="new_password"
             type="password"
             placeholder="Digite sua nova senha"
             autoComplete="on"
           />
-          <Input
-            icon={FiLock}
+          <InputText
+            // icon={FiLock}
             name="new_password_confirmation"
             type="password"
             placeholder="Confirme sua nova senha"

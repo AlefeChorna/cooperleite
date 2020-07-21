@@ -2,11 +2,10 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
-import Input from '../../components/Input';
+import InputText from '../../components/Input/Text';
 import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
@@ -14,7 +13,13 @@ import { signInRoute } from '../../routes/config';
 import Request from '../../services/request';
 import Route from '../../services/route';
 
-import { Container, Content, AnimationContainer, Background } from './styles';
+import {
+  Container,
+  Content,
+  AnimationContainer,
+  Form,
+  Background,
+} from './styles';
 
 const ResetPassword: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -27,7 +32,9 @@ const ResetPassword: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          password: Yup.string().min(8, 'Senha deve ter no mínimo 8 digítos'),
+          password: Yup.string()
+            .required('Senha deve ter no mínimo 8 digítos')
+            .min(8, 'Senha deve ter no mínimo 8 digítos'),
           password_confirmation: Yup.string().oneOf(
             [Yup.ref('password'), null],
             'Senha de confirmação incorreta',
@@ -68,19 +75,19 @@ const ResetPassword: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form formRef={formRef} onSubmit={handleSubmit}>
             <h1>Alterar senha</h1>
 
-            <Input
-              icon={FiLock}
+            <InputText
+              startAdornment={<FiLock size={19} />}
               name="password"
               type="password"
               placeholder="Digite sua nova senha"
               autoComplete="on"
             />
 
-            <Input
-              icon={FiLock}
+            <InputText
+              startAdornment={<FiLock size={19} />}
               name="password_confirmation"
               type="password"
               placeholder="Confirme sua nova senha"

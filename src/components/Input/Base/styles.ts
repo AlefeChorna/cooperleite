@@ -4,6 +4,10 @@ import MUITextField from '@material-ui/core/TextField';
 export const TextField = styled(MUITextField)`
   width: 100%;
 
+  svg {
+    color: #555;
+  }
+
   label {
     color: #fff;
     font-size: 16.5px;
@@ -44,11 +48,21 @@ export const TextField = styled(MUITextField)`
     color: #fd951f;
   }
 
+  &:focus-within div:not(.Mui-error) svg {
+    color: #fd951f;
+  }
+
+  &:focus-within div.Mui-error svg {
+    color: #c35355;
+  }
+
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #353535 inset !important;
     -webkit-text-fill-color: #fff !important;
+    border-radius: 0px;
+    margin-left: 12px;
   }
 `;

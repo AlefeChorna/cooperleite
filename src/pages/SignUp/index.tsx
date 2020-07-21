@@ -1,12 +1,11 @@
 import React, { useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
-import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Input from '../../components/Input';
+import InputText from '../../components/Input/Text';
 import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
@@ -14,7 +13,13 @@ import { signInRoute } from '../../routes/config';
 import { signUpRequest } from '../../store/modules/user/actions';
 import { StoreStateTypes } from '../../store/types';
 
-import { Container, Content, AnimationContainer, Background } from './styles';
+import {
+  Container,
+  Content,
+  AnimationContainer,
+  Form,
+  Background,
+} from './styles';
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
@@ -33,7 +38,9 @@ const SignUp: React.FC = () => {
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
-          password: Yup.string().min(6, 'No mínimo 6 digitos'),
+          password: Yup.string()
+            .required('Senha deve ter no mínimo 8 digítos')
+            .min(8, 'No mínimo 8 digitos'),
         });
 
         await schema.validate(data, { abortEarly: false });
@@ -51,18 +58,23 @@ const SignUp: React.FC = () => {
       <Background />
       <Content>
         <AnimationContainer>
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form formRef={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu cadastro</h1>
 
-            <Input icon={FiUser} name="name" type="name" placeholder="Nome" />
-            <Input
-              icon={FiMail}
+            <InputText
+              startAdornment={<FiUser size={19} />}
+              name="name"
+              type="name"
+              placeholder="Nome"
+            />
+            <InputText
+              startAdornment={<FiMail size={19} />}
               name="email"
               type="email"
               placeholder="E-mail"
             />
-            <Input
-              icon={FiLock}
+            <InputText
+              startAdornment={<FiLock size={19} />}
               name="password"
               type="password"
               placeholder="Senha"

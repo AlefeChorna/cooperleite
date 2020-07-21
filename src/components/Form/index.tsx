@@ -11,7 +11,7 @@ import Spinner from '../Spinner';
 
 interface FormProps extends Omit<UNFormProps, 'onSubmit'> {
   onSubmit?: SubmitHandler;
-  loading: boolean;
+  loading?: boolean;
   disabledForm?: boolean;
   formRef: React.RefObject<FormHandles>;
 }

@@ -6,7 +6,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
-import Input from '../../components/Input';
+import InputText from '../../components/Input/Text';
 import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
@@ -65,8 +65,8 @@ const ForgotPassword: React.FC = () => {
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Recuperar senha</h1>
 
-            <Input
-              icon={FiMail}
+            <InputText
+              startAdornment={<FiMail size={19} />}
               name="email"
               type="email"
               placeholder="Digite seu e-mail"

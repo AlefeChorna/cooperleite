@@ -2,11 +2,11 @@ import React, { useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Input from '../../components/Input';
+import Col from '../../components/Col';
+import InputText from '../../components/Input/Text';
 import Button from '../../components/Button';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
@@ -14,7 +14,13 @@ import { signUpRoute, forgotPasswordRoute } from '../../routes/config';
 import { signInRequest } from '../../store/modules/auth/actions';
 import { StoreStateTypes } from '../../store/types';
 
-import { Container, Content, AnimationContainer, Background } from './styles';
+import {
+  Container,
+  Form,
+  Content,
+  AnimationContainer,
+  Background,
+} from './styles';
 
 const SignIn: React.FC = () => {
   const dispatch = useDispatch();
@@ -50,17 +56,17 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form formRef={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu login</h1>
 
-            <Input
-              icon={FiMail}
+            <InputText
+              startAdornment={<FiMail size={19} />}
               name="email"
               type="email"
               placeholder="E-mail"
             />
-            <Input
-              icon={FiLock}
+            <InputText
+              startAdornment={<FiLock size={20} />}
               name="password"
               type="password"
               placeholder="Senha"

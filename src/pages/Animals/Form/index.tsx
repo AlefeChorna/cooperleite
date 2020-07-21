@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 
 import Form from '../../../components/Form';
 import Col from '../../../components/Col';
-import Input from '../../../components/MUInput';
-import InputSelect from '../../../components/InputSelect';
-import Checkbox from '../../../components/Checkbox';
+import InputText from '../../../components/Input/Text';
+import InputSelect from '../../../components/Input/Select';
+import Checkbox from '../../../components/Input/Checkbox';
 
 import Request from '../../../services/request';
 import createNumberMask from '../../../utils/createNumberMask';
@@ -73,55 +73,50 @@ const FormComponent: React.FC<FormProps> = ({
 
   return (
     <Form formRef={formRef} loading={loading} disabledForm={isShowPage}>
-      <Col xs={12} sm={6} md={6}>
-        <Input
-          name="name"
-          label="Nome"
-          helperText="Campo Obrigatório"
-          autoComplete="off"
-        />
-      </Col>
-      <Col xs={12} sm={6} md={6}>
-        <Input
-          name="earring_number"
-          inputMask={earringNumberMask}
-          label="Número do Brinco"
-          helperText="Campo Obrigatório"
-          autoComplete="off"
-        />
-      </Col>
-      <Col xs={12} sm={6} md={6}>
-        <InputSelect
-          label="Sexo"
-          name="gender"
-          options={[
-            { id: 'M', value: 'Macho' },
-            { id: 'F', value: 'Fêmea' },
-          ]}
-        />
-      </Col>
-      <Col xs={12} sm={6} md={6}>
-        <Input
-          name="weight"
-          inputMask={weightMask}
-          label="Peso"
-          autoComplete="off"
-          defaultValue="0"
-        />
-      </Col>
-      <Col xs={12} sm={6} md={6}>
-        <Input name="breed" label="Raça" />
-      </Col>
-      <Col xs={12} sm={6} md={6}>
-        <Input
-          name="date_birth"
-          label="Data de Nascimento"
-          inputMask={dateBirthMask}
-        />
-      </Col>
-      <Col xs={12} sm={6} md={6}>
-        <Checkbox name="lactating" label="Lactante (Esta produzindo leite)" />
-      </Col>
+      <InputText
+        name="name"
+        label="Nome"
+        helperText="Campo Obrigatório"
+        autoComplete="off"
+        sm={6}
+        md={6}
+      />
+      <InputText
+        name="earring_number"
+        inputMask={earringNumberMask}
+        label="Número do Brinco"
+        helperText="Campo Obrigatório"
+        autoComplete="off"
+        sm={6}
+        md={6}
+      />
+      <InputSelect
+        label="Sexo"
+        name="gender"
+        options={[
+          { id: 'M', value: 'Macho' },
+          { id: 'F', value: 'Fêmea' },
+        ]}
+        sm={6}
+        md={6}
+      />
+      <InputText
+        name="weight"
+        inputMask={weightMask}
+        label="Peso"
+        autoComplete="off"
+        sm={6}
+        md={6}
+      />
+      <InputText name="breed" label="Raça" sm={6} md={6} />
+      <InputText
+        name="date_birth"
+        label="Data de Nascimento"
+        inputMask={dateBirthMask}
+        sm={6}
+        md={6}
+      />
+      <Checkbox name="lactating" label="Lactante (Esta produzindo leite)" />
     </Form>
   );
 };
