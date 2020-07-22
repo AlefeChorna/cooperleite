@@ -63,6 +63,14 @@ export const TextField = styled(MUITextField)`
     -webkit-box-shadow: 0 0 0 30px #353535 inset !important;
     -webkit-text-fill-color: #fff !important;
     border-radius: 0px;
-    margin-left: 12px;
+  }
+
+  & .MuiOutlinedInput-adornedStart {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      margin-left: 12px;
+    }
   }
 `;
