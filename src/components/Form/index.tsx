@@ -6,8 +6,9 @@ import {
 } from '@unform/core';
 import { Form } from '@unform/web';
 
-import InputGroup from '../InputGroup';
 import Spinner from '../Spinner';
+
+import { InputGroup } from './styles';
 
 interface FormProps extends Omit<UNFormProps, 'onSubmit'> {
   onSubmit?: SubmitHandler;
@@ -32,7 +33,7 @@ const FormComponent: React.FC<FormProps> = ({
       ref={formRef}
     >
       {loading && <Spinner loadingText="" />}
-      <InputGroup style={{ opacity: loading ? 0 : 1 }}>{children}</InputGroup>
+      <InputGroup loading={loading ? 'true' : 'false'}>{children}</InputGroup>
     </Form>
   );
 };

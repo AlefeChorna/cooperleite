@@ -1,26 +1,69 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
 
+import FormComponent from '../../components/Form';
+import Col from '../../components/Col';
+
 export const Container = styled.div`
   display: flex;
-  flex: 1;
-  align-items: center;
-  place-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .profile {
+    padding: 30px 0px;
+    margin-bottom: 30px;
+  }
+
+  @media (min-width: 600px) {
+    .profile {
+      flex-grow: 0;
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+  }
+  @media (min-width: 960px) {
+    flex-direction: row;
+
+    .profile {
+      flex-grow: 0;
+      max-width: 40%;
+      flex-basis: 40%;
+    }
+
+    .form {
+      flex-grow: 0;
+      max-width: calc(60% - 40px);
+      flex-basis: calc(60% - 40px);
+    }
+  }
 `;
 
-export const Content = styled.div`
+export const Form = styled(FormComponent)`
   display: flex;
-  min-width: 400px;
+  flex-direction: column;
+  padding: 25px 0;
 
-  form {
-    display: flex;
-    flex-direction: column;
-    margin: 40px 0;
-    width: 340px;
+  & .MuiGrid-spacing-xs-2 > .MuiGrid-item {
+    padding: 0 0 9px 0;
+  }
 
-    h1 {
-      margin-bottom: 24px;
-    }
+  & .MuiGrid-spacing-xs-2 {
+    padding: 15px 30px;
+  }
+`;
+
+export const AvatarContainer = styled(Col)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #29292e;
+  border-radius: 5px;
+  padding: 5px;
+  height: 300px;
+
+  strong {
+    margin-bottom: 6px;
   }
 `;
 
@@ -65,5 +108,14 @@ export const AvatarInput = styled.div`
     &:hover {
       background-color: ${shade(0.2, '#fd951f')};
     }
+  }
+`;
+
+export const InputContainer = styled(Col)`
+  background-color: #29292e;
+  border-radius: 5px;
+
+  h3 {
+    padding: 30px 0 0 30px;
   }
 `;

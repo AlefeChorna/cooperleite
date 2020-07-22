@@ -1,7 +1,11 @@
 import React from 'react';
 import Grid, { GridProps } from '@material-ui/core/Grid';
 
-const InputGroup: React.FC<GridProps> = ({ children, ...props }) => {
+export interface InputGroupProps extends GridProps {
+  loading?: 'true' | 'false';
+}
+
+const InputGroup: React.FC<InputGroupProps> = ({ children, ...props }) => {
   return (
     <Grid container spacing={2} {...props}>
       {children}

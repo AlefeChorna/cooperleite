@@ -1,10 +1,10 @@
 import React, { useRef, useCallback, ChangeEvent } from 'react';
 import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiUser, FiMail, FiLock, FiCamera } from 'react-icons/fi';
 import * as Yup from 'yup';
 
+import LayoutBase from '../../components/Layouts/Base';
 import InputText from '../../components/Input/Text';
 import Button from '../../components/Button';
 import getValidationsErrors from '../../utils/getValidationsErrors';
@@ -14,7 +14,13 @@ import {
 } from '../../store/modules/user/actions';
 import { StoreStateTypes } from '../../store/types';
 
-import { Container, Content, AvatarInput } from './styles';
+import {
+  Form,
+  Container,
+  AvatarContainer,
+  AvatarInput,
+  InputContainer,
+} from './styles';
 
 interface ProfileFormData {
   name: string;
@@ -89,16 +95,13 @@ const Dashboard: React.FC = () => {
   );
 
   return (
-    <Container>
-      <Content>
-        <Form
-          ref={formRef}
-          initialData={{
-            name: profile.name,
-            email: profile.email,
-          }}
-          onSubmit={handleSubmit}
-        >
+    <LayoutBase
+      navMenuProps={{ visible: false }}
+      breadcrumbs={[{ text: 'Meu Perfil' }]}
+    >
+      <div style={{ height: 30 }} />
+      <Container>
+        <AvatarContainer className="profile">
           <AvatarInput>
             <img src={profile.avatar_url} alt="Foto do perfil" />
             <label htmlFor="avatar">
@@ -106,51 +109,63 @@ const Dashboard: React.FC = () => {
               <input type="file" id="avatar" onChange={handleAvatarChange} />
             </label>
           </AvatarInput>
+          <strong>{profile.name}</strong>
+          <span>{profile.email}</span>
+        </AvatarContainer>
 
-          <h1>Meu perfil</h1>
+        <InputContainer className="form">
+          <h3>Informações</h3>
+          <Form
+            formRef={formRef}
+            initialData={{
+              name: profile.name,
+              email: profile.email,
+            }}
+            onSubmit={handleSubmit}
+          >
+            <InputText
+              startAdornment={<FiUser size={19} />}
+              name="name"
+              type="name"
+              placeholder="Nome"
+              xs={10}
+            />
+            <InputText
+              startAdornment={<FiMail size={19} />}
+              name="email"
+              type="email"
+              placeholder="E-mail"
+            />
 
-          <InputText
-            // icon={FiUser}
-            name="name"
-            type="name"
-            placeholder="Nome"
-          />
-          <InputText
-            // icon={FiMail}
-            name="email"
-            type="email"
-            placeholder="E-mail"
-          />
+            <InputText
+              startAdornment={<FiLock size={19} />}
+              name="old_password"
+              type="password"
+              placeholder="Digite sua senha atual"
+              autoComplete="on"
+            />
+            <InputText
+              startAdornment={<FiLock size={19} />}
+              name="new_password"
+              type="password"
+              placeholder="Digite sua nova senha"
+              autoComplete="on"
+            />
+            <InputText
+              startAdornment={<FiLock size={19} />}
+              name="new_password_confirmation"
+              type="password"
+              placeholder="Confirme sua nova senha"
+              autoComplete="on"
+            />
 
-          <InputText
-            // containetStyle={{ marginTop: 25 }}
-            // icon={FiLock}
-            name="old_password"
-            type="password"
-            placeholder="Digite sua senha atual"
-            autoComplete="on"
-          />
-          <InputText
-            // icon={FiLock}
-            name="new_password"
-            type="password"
-            placeholder="Digite sua nova senha"
-            autoComplete="on"
-          />
-          <InputText
-            // icon={FiLock}
-            name="new_password_confirmation"
-            type="password"
-            placeholder="Confirme sua nova senha"
-            autoComplete="on"
-          />
-
-          <Button loading={loading} type="submit">
-            Salvar
-          </Button>
-        </Form>
-      </Content>
-    </Container>
+            <Button loading={loading} type="submit">
+              Salvar
+            </Button>
+          </Form>
+        </InputContainer>
+      </Container>
+    </LayoutBase>
   );
 };
 
