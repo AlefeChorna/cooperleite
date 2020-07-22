@@ -128,7 +128,6 @@ const Dashboard: React.FC = () => {
               name="name"
               type="name"
               placeholder="Nome"
-              xs={10}
             />
             <InputText
               startAdornment={<FiMail size={19} />}
