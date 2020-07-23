@@ -17,8 +17,8 @@ export function signUpSuccess(): ReduxShortAction<string> {
   return action(UserActionTypes.SIGN_UP_SUCCESS);
 }
 
-export function signFailure(message: string): ReduxAction<string, string> {
-  return action(UserActionTypes.SIGN_FAILURE, message);
+export function signFailure(errors: object): ReduxAction<string, object> {
+  return action(UserActionTypes.SIGN_FAILURE, { errors });
 }
 
 export function updateAvatarRequest(

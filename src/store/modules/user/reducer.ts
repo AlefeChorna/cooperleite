@@ -5,6 +5,7 @@ import { AuthActionTypes } from '../auth/types';
 
 const INITIAL_STATE: UserState = {
   profile: {} as User,
+  errors: {},
   loading: false,
 };
 
@@ -18,6 +19,7 @@ const user: Reducer<UserState> = (state = INITIAL_STATE, action) => {
       case UserActionTypes.SIGN_UP_REQUEST:
       case UserActionTypes.UPDATE_PROFILE_REQUEST: {
         draft.loading = true;
+        draft.errors = {};
         break;
       }
       case UserActionTypes.SIGN_UP_SUCCESS: {
@@ -27,6 +29,7 @@ const user: Reducer<UserState> = (state = INITIAL_STATE, action) => {
       case UserActionTypes.SIGN_FAILURE:
       case UserActionTypes.UPDATE_PROFILE_FAILURE: {
         draft.loading = false;
+        draft.errors = action.payload.errors;
         break;
       }
       case UserActionTypes.UPDATE_AVATAR_SUCCESS: {

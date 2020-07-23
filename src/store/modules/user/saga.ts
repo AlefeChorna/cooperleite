@@ -7,6 +7,7 @@ import {
   User,
   UpdateProfileRequestProps,
 } from './types';
+import { PersistReducerActionTypes } from '../types';
 import {
   signUpSuccess,
   signFailure,
@@ -38,15 +39,17 @@ export function* signUp({
     yield put(signUpSuccess());
     history.push(signInRoute.path);
   } catch (err) {
-    let errorMessage =
-      'Não foi possível realizar o cadastro. Tente novamente mais tarde!';
+    const errors = {};
 
     if (err?.status === Request.HTTP_STATUS.UNPROCESSABLE_ENTITY) {
-      errorMessage = err.message;
+      Object.assign(errors, err.messages);
+    } else {
+      toast.error(
+        'Não foi possível realizar o cadastro. Tente novamente mais tarde!',
+      );
     }
 
-    toast.error(errorMessage);
-    yield put(signFailure(err.message));
+    yield put(signFailure(errors));
   }
 }
 
@@ -98,7 +101,15 @@ export function* updateProfile({
   }
 }
 
+export function rehydrateAuth({ payload }: any): void {
+  if (payload?.user) {
+    const persistedReducer = payload.user;
+    persistedReducer.errors = {};
+  }
+}
+
 export default all([
+  takeLatest(PersistReducerActionTypes.REHYDRATE, rehydrateAuth),
   takeLatest(UserActionTypes.SIGN_UP_REQUEST, signUp),
   takeLatest(UserActionTypes.UPDATE_AVATAR_REQUEST, updateAvatar),
   takeLatest(UserActionTypes.UPDATE_PROFILE_REQUEST, updateProfile),

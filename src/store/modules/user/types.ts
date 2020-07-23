@@ -37,4 +37,5 @@ export enum UserActionTypes {
 export interface UserState {
   readonly profile: User;
   readonly loading: boolean;
+  readonly errors: object;
 }

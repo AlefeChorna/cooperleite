@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
@@ -23,8 +23,8 @@ import {
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
-  const loading = useSelector<StoreStateTypes, boolean>(
-    (state) => state.auth.loading,
+  const { loading, errors } = useSelector<StoreStateTypes, any>(
+    (state) => state.user,
   );
   const formRef = useRef<FormHandles>(null);
 
@@ -52,6 +52,10 @@ const SignUp: React.FC = () => {
     },
     [dispatch],
   );
+
+  useEffect(() => {
+    formRef.current?.setErrors(errors);
+  }, [errors]);
 
   return (
     <Container>
