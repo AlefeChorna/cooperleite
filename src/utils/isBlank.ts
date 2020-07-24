@@ -16,8 +16,6 @@ export default (value: any): boolean => {
   if (value) {
     if (`${value}`.trim() === '') {
       return true;
-      // }else if ( (typeof Immutable !== 'undefined') && Immutable.Iterable.isIterable(value) ){
-      //   return value.count() === 0;
     }
 
     if (value instanceof Date && typeof value.getMonth === 'function') {
