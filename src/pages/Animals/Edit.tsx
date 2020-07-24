@@ -47,13 +47,13 @@ const Edit: React.FC = () => {
         formData,
       );
 
+      setLoading(false);
+
       if (response.data) {
         const { data } = response;
         history.replace(animalShowRoute.build({ id: data.id }), null);
         toast.success('Animal editado com sucesso!');
       }
-
-      setLoading(false);
     } catch (err) {
       const validationErrors = getValidationsErrors(err);
       formRef.current?.setErrors(validationErrors);
