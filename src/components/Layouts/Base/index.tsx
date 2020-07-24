@@ -27,7 +27,7 @@ const Base: React.FC<LayoutListProps> = ({
 
   useEffect(() => {
     setBreadcrumbs([
-      { path: dashboardRoute.path, text: 'Dashboard' },
+      { path: dashboardRoute.path, text: 'Início' },
       ...breadcrumbs,
     ]);
   }, [setBreadcrumbs, breadcrumbs]);

@@ -22,7 +22,7 @@ export type DrawerMenuItemProps = DrawerMenuItems & CollapseItem;
 
 export const drawerMenuItems: DrawerMenuItems[] = [
   {
-    name: 'Dashboard',
+    name: 'Início',
     icon: FiGrid,
     to: dashboardRoute.path,
   },
