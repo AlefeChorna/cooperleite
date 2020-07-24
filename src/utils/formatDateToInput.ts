@@ -6,7 +6,11 @@ export default function formatDateToInput(
 ): string {
   if (!date) return '';
 
-  const parsedDate = parseISO(date);
+  try {
+    const parsedDate = parseISO(date);
 
-  return format(parsedDate, formatTo);
+    return format(parsedDate, formatTo);
+  } catch {
+    return '';
+  }
 }

@@ -14,8 +14,6 @@ import {
 } from '../../routes/config';
 import { animalsRouteApi } from '../../routes/config/api';
 import getValidationsErrors from '../../utils/getValidationsErrors';
-import formatNumberToAPI from '../../utils/formatNumberToAPI';
-import formatDateToISO from '../../utils/formatDateToISO';
 import Request from '../../services/request';
 import history from '../../services/history';
 
@@ -36,11 +34,10 @@ const Edit: React.FC = () => {
         gender: Yup.string().oneOf(['M', 'F'], 'Campo obrigatório'),
       });
 
-      console.log({ ...formData });
       Object.assign(formData, {
-        weight: formatNumberToAPI(formData?.weight) || 0,
+        weight: formData?.weight || 0,
         breed: formData?.breed ?? '',
-        date_birth: formatDateToISO(formData?.date_birth),
+        date_birth: formData?.date_birth || null,
       });
 
       await schema.validate(formData, { abortEarly: false });

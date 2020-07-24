@@ -3,10 +3,12 @@ import { useField } from '@unform/core';
 
 import InputBase, { InputBaseProps } from '../Base';
 
-const anyCharacterRegEx = /./;
-const defaultMask = Array(100).fill(anyCharacterRegEx);
+import formatDateToISO from '../../../utils/formatDateToISO';
+import formatDateToInput from '../../../utils/formatDateToInput';
 
-const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
+const defaultMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+
+const InputDate: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
   name,
   ...props
 }) => {
@@ -18,15 +20,15 @@ const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'props.value',
+      getValue: () => formatDateToISO(mask),
       setValue: (_, newValue) => {
-        setMask(newValue);
+        setMask(formatDateToInput(newValue));
       },
       clearValue: (ref, newValue) => {
         ref.setInputValue(newValue);
       },
     });
-  }, [fieldName, registerField, setMask]);
+  }, [fieldName, registerField, mask, setMask]);
 
   const handleMask = useCallback((e: any) => {
     const { value } = e.target;
@@ -47,4 +49,4 @@ const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
   );
 };
 
-export default InputText;
+export default InputDate;

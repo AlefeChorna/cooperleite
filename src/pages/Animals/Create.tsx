@@ -9,8 +9,6 @@ import Form from './Form';
 import { animalListRoute, animalShowRoute } from '../../routes/config';
 import { animalsRouteApi } from '../../routes/config/api';
 import getValidationsErrors from '../../utils/getValidationsErrors';
-import formatNumberToAPI from '../../utils/formatNumberToAPI';
-import formatDateToISO from '../../utils/formatDateToISO';
 import Request from '../../services/request';
 import history from '../../services/history';
 
@@ -30,10 +28,7 @@ const Create: React.FC = () => {
         gender: Yup.string().oneOf(['M', 'F'], 'Campo obrigatório'),
       });
 
-      Object.assign(formData, {
-        weight: formatNumberToAPI(formData?.weight) || 0,
-        date_birth: formatDateToISO(formData?.date_birth),
-      });
+      Object.assign(formData, { weight: formData?.weight || 0 });
 
       await schema.validate(formData, { abortEarly: false });
       const response = await Request.post(animalsRouteApi.path, formData);

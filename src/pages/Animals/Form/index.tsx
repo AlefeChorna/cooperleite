@@ -5,29 +5,14 @@ import { toast } from 'react-toastify';
 
 import Form from '../../../components/Form';
 import InputText from '../../../components/Input/Text';
+import InputInteger from '../../../components/Input/Integer';
+import InputNumeric from '../../../components/Input/Numeric';
+import InputDate from '../../../components/Input/Date';
 import InputSelect from '../../../components/Input/Select';
 import Checkbox from '../../../components/Input/Checkbox';
 
 import Request from '../../../services/request';
-import createNumberMask from '../../../utils/createNumberMask';
 import { animalsRouteApi } from '../../../routes/config/api';
-import formatNumberToInput from '../../../utils/formatNumberToInput';
-import formatDateToInput from '../../../utils/formatDateToInput';
-
-const weightMask = createNumberMask();
-const earringNumberMask = [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
-const dateBirthMask = [
-  /\d/,
-  /\d/,
-  '/',
-  /\d/,
-  /\d/,
-  '/',
-  /\d/,
-  /\d/,
-  /\d/,
-  /\d/,
-];
 
 interface FormProps {
   isShowPage?: boolean;
@@ -49,11 +34,6 @@ const FormComponent: React.FC<FormProps> = ({
           const response = await Request.get(`${animalsRouteApi.path}/${id}`);
 
           if (response.data) {
-            Object.assign(response.data, {
-              weight: formatNumberToInput(response.data.weight),
-              date_birth: formatDateToInput(response.data.date_birth),
-            });
-
             formRef.current?.setData(response.data);
           }
 
@@ -80,9 +60,8 @@ const FormComponent: React.FC<FormProps> = ({
         sm={6}
         md={6}
       />
-      <InputText
+      <InputInteger
         name="earring_number"
-        inputMask={earringNumberMask}
         label="Número do Brinco"
         helperText="Campo Obrigatório"
         autoComplete="off"
@@ -99,22 +78,15 @@ const FormComponent: React.FC<FormProps> = ({
         sm={6}
         md={6}
       />
-      <InputText
+      <InputNumeric
         name="weight"
-        inputMask={weightMask}
         label="Peso"
         autoComplete="off"
         sm={6}
         md={6}
       />
       <InputText name="breed" label="Raça" sm={6} md={6} />
-      <InputText
-        name="date_birth"
-        label="Data de Nascimento"
-        inputMask={dateBirthMask}
-        sm={6}
-        md={6}
-      />
+      <InputDate name="date_birth" label="Data de Nascimento" sm={6} md={6} />
       <Checkbox name="lactating" label="Lactante (Esta produzindo leite)" />
     </Form>
   );

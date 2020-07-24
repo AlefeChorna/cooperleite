@@ -6,7 +6,11 @@ export default function formatDateToISO(
 ): string {
   if (!date) return '';
 
-  const parsedDate = parse(date, format, new Date());
+  try {
+    const parsedDate = parse(date, format, new Date());
 
-  return parsedDate.toISOString();
+    return parsedDate.toISOString();
+  } catch {
+    return '';
+  }
 }

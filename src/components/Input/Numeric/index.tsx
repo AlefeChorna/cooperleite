@@ -3,10 +3,13 @@ import { useField } from '@unform/core';
 
 import InputBase, { InputBaseProps } from '../Base';
 
-const anyCharacterRegEx = /./;
-const defaultMask = Array(100).fill(anyCharacterRegEx);
+import createNumberMask from '../../../utils/createNumberMask';
+import formatNumberToAPI from '../../../utils/formatNumberToAPI';
+import formatNumberToInput from '../../../utils/formatNumberToInput';
 
-const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
+const defaultMask = createNumberMask();
+
+const InputNumeric: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
   name,
   ...props
 }) => {
@@ -18,15 +21,15 @@ const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'props.value',
+      getValue: () => formatNumberToAPI(mask),
       setValue: (_, newValue) => {
-        setMask(newValue);
+        setMask(formatNumberToInput(newValue));
       },
       clearValue: (ref, newValue) => {
         ref.setInputValue(newValue);
       },
     });
-  }, [fieldName, registerField, setMask]);
+  }, [fieldName, registerField, mask, setMask]);
 
   const handleMask = useCallback((e: any) => {
     const { value } = e.target;
@@ -47,4 +50,4 @@ const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
   );
 };
 
-export default InputText;
+export default InputNumeric;

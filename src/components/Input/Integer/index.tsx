@@ -3,10 +3,10 @@ import { useField } from '@unform/core';
 
 import InputBase, { InputBaseProps } from '../Base';
 
-const anyCharacterRegEx = /./;
-const defaultMask = Array(100).fill(anyCharacterRegEx);
+const onlyNumberRegEx = /\d/;
+const defaultMask = Array(8).fill(onlyNumberRegEx);
 
-const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
+const InputInteger: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
   name,
   ...props
 }) => {
@@ -47,4 +47,4 @@ const InputText: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
   );
 };
 
-export default InputText;
+export default InputInteger;

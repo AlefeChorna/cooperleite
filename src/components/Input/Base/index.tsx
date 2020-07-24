@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { useField } from '@unform/core';
+import React from 'react';
 import MaskedInput from 'react-text-mask';
 import { BaseTextFieldProps } from '@material-ui/core/TextField';
 
@@ -32,18 +31,28 @@ export interface MetrincsProps {
   md?: Metrics;
 }
 
-export interface InputProps extends BaseTextFieldProps, MetrincsProps {
+export interface InputBaseProps
+  extends Omit<BaseTextFieldProps, 'error'>,
+    MetrincsProps {
   name: string;
+  inputRef?: any;
   inputMask?: Mask | ((value: string) => Mask);
+  maskValue?: any;
+  defaultValue?: any;
+  error?: string | undefined;
   startAdornment?: React.ReactElement<any>;
+  onChangeMask?: (e: any) => any;
 }
 
 const anyCharacterRegEx = /./;
 const defaultMask = Array(100).fill(anyCharacterRegEx);
 
-const MUInput: React.FC<InputProps> = ({
-  name,
+const InputBase: React.FC<InputBaseProps> = ({
+  inputRef,
   inputMask,
+  maskValue,
+  error,
+  onChangeMask,
   helperText,
   startAdornment = null,
   xs = 12,
@@ -51,36 +60,13 @@ const MUInput: React.FC<InputProps> = ({
   md = 12,
   ...rest
 }) => {
-  const { fieldName, defaultValue, registerField, error } = useField(name);
-  const [mask, setMask] = useState(defaultValue);
-  const inputRef = useRef<any>(null);
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: inputRef.current,
-      path: 'props.value',
-      setValue: (_, newValue) => {
-        setMask(newValue);
-      },
-      clearValue: (ref, newValue) => {
-        ref.setInputValue(newValue);
-      },
-    });
-  }, [fieldName, registerField, setMask]);
-
-  const handleMask = useCallback((e: any) => {
-    const { value } = e.target;
-    return setMask(value);
-  }, []);
-
   return (
     <MaskedInput
       ref={inputRef}
       mask={inputMask || defaultMask}
       guide={false}
-      value={mask}
-      onChange={handleMask}
+      value={maskValue}
+      onChange={onChangeMask}
       render={(ref, inputMaskProps: any): any => {
         return (
           <Col xs={xs} sm={sm} md={md}>
@@ -91,12 +77,7 @@ const MUInput: React.FC<InputProps> = ({
               }}
               InputProps={{ startAdornment }}
               // eslint-disable-next-line react/jsx-no-duplicate-props
-              inputProps={{
-                ref,
-                name,
-                defaultValue,
-                ...inputMaskProps,
-              }}
+              inputProps={{ ref, ...inputMaskProps }}
               {...rest}
               error={!!error}
               helperText={error || helperText}
@@ -108,4 +89,4 @@ const MUInput: React.FC<InputProps> = ({
   );
 };
 
-export default MUInput;
+export default InputBase;
