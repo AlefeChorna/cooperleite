@@ -3,6 +3,8 @@ import { useField } from '@unform/core';
 
 import InputBase, { InputBaseProps } from '../Base';
 
+import isBlank from '../../../utils/isBlank';
+
 const onlyNumberRegEx = /\d/;
 const defaultMask = Array(8).fill(onlyNumberRegEx);
 
@@ -18,7 +20,10 @@ const InputInteger: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'props.value',
+      getValue: () => {
+        if (isBlank(mask)) return '';
+        return Number(mask);
+      },
       setValue: (_, newValue) => {
         setMask(newValue);
       },
@@ -26,7 +31,7 @@ const InputInteger: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
         ref.setInputValue(newValue);
       },
     });
-  }, [fieldName, registerField, setMask]);
+  }, [fieldName, registerField, mask, setMask]);
 
   const handleMask = useCallback((e: any) => {
     const { value } = e.target;

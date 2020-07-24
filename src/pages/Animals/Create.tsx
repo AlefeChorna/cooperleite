@@ -24,11 +24,11 @@ const Create: React.FC = () => {
       const formData: any = formRef.current?.getData();
       const schema = Yup.object().shape({
         name: Yup.string().required('Campo obrigatório'),
-        earring_number: Yup.number().required('Campo obrigatório'),
+        earring_number: Yup.number()
+          .required('Campo obrigatório')
+          .typeError('Campo obrigatório'),
         gender: Yup.string().oneOf(['M', 'F'], 'Campo obrigatório'),
       });
-
-      Object.assign(formData, { weight: formData?.weight || 0 });
 
       await schema.validate(formData, { abortEarly: false });
       const response = await Request.post(animalsRouteApi.path, formData);

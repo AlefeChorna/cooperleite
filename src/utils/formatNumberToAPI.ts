@@ -1,8 +1,12 @@
 export default function formatNumberToAPI(
   value: string,
   decimalSeparator = '.',
-): string {
+): number | string {
   if (!value) return '';
 
-  return value.replace(/\./g, '').replace(',', decimalSeparator);
+  const formattedNumber = value
+    .replace(/\./g, '')
+    .replace(',', decimalSeparator);
+
+  return Number(formattedNumber);
 }

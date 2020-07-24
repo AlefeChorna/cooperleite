@@ -23,7 +23,7 @@ const InputNumeric: React.FC<Omit<InputBaseProps, 'inputRef'>> = ({
       ref: inputRef.current,
       getValue: () => formatNumberToAPI(mask),
       setValue: (_, newValue) => {
-        setMask(formatNumberToInput(newValue));
+        setMask(formatNumberToInput(newValue as string));
       },
       clearValue: (ref, newValue) => {
         ref.setInputValue(newValue);
