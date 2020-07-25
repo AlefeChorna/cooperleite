@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, ChangeEvent } from 'react';
+import React, { useRef, useEffect, useCallback, ChangeEvent } from 'react';
 import { FormHandles } from '@unform/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiUser, FiMail, FiLock, FiCamera } from 'react-icons/fi';
@@ -13,6 +13,7 @@ import {
   updateProfileRequest,
 } from '../../store/modules/user/actions';
 import { StoreStateTypes } from '../../store/types';
+import noProfileIcon from '../../assets/no-profile-alternative.svg';
 
 import {
   Form,
@@ -32,10 +33,14 @@ interface ProfileFormData {
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const { profile, loading } = useSelector(
+  const { profile, loading, errors } = useSelector(
     (state: StoreStateTypes) => state.user,
   );
   const formRef = useRef<FormHandles>(null);
+
+  useEffect(() => {
+    formRef.current?.setErrors(errors);
+  }, [errors]);
 
   const handleSubmit = useCallback(
     async (data: ProfileFormData) => {
@@ -103,7 +108,10 @@ const Dashboard: React.FC = () => {
       <Container>
         <AvatarContainer className="profile">
           <AvatarInput>
-            <img src={profile.avatar_url} alt="Foto do perfil" />
+            <img
+              src={profile.avatar_url || noProfileIcon}
+              alt="Foto do perfil"
+            />
             <label htmlFor="avatar">
               <FiCamera />
               <input type="file" id="avatar" onChange={handleAvatarChange} />

@@ -1,9 +1,9 @@
 import React from 'react';
 import { IconBaseProps } from 'react-icons';
-import { FiGrid, FiBarChart2 } from 'react-icons/fi';
+import { FiGrid } from 'react-icons/fi';
 import { GiCow } from 'react-icons/gi';
 
-import { dashboardRoute, animalListRoute } from './index';
+import { dashboardRoute, animalListRoute, vaccineListRoute } from './index';
 
 interface CollapseItem {
   name: string;
@@ -28,7 +28,7 @@ export const drawerMenuItems: DrawerMenuItems[] = [
   },
   {
     name: 'Animais',
-    icon: () => <GiCow size={23} color="#FFF" />,
+    icon: (): any => <GiCow size={23} color="#FFF" />,
     collapse: [
       {
         name: 'Rebanho',
@@ -37,7 +37,7 @@ export const drawerMenuItems: DrawerMenuItems[] = [
       },
       {
         name: 'Vacinas',
-        to: '/incomes',
+        to: vaccineListRoute.path,
         collapseFatherName: 'Animais',
       },
     ],

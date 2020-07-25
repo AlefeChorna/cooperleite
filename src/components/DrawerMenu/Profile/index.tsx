@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StoreStateTypes } from '../../../store/types';
 import { profileRoute } from '../../../routes/config';
 import { signOut } from '../../../store/modules/auth/actions';
+import noProfileIcon from '../../../assets/no-profile.svg';
 
 import { Container, Info, PopoverContent } from './styles';
 
@@ -42,7 +43,7 @@ const Profile: React.FC = () => {
           <p>{profile.role ?? 'Administrador'}</p>
         </Info>
 
-        <Avatar src={profile.avatar_url} />
+        <Avatar src={profile.avatar_url || noProfileIcon} />
       </a>
       <Popover
         id={id}

@@ -95,9 +95,15 @@ export function* updateProfile({
     toast.success('Perfil alterado com sucesso');
     history.push(dashboardRoute.path);
   } catch (err) {
-    toast.error('Não foi possível atualizar o perfil. Tente novamente!');
+    const errors = {};
 
-    yield put(updateProfileFailure());
+    if (err?.status === Request.HTTP_STATUS.UNPROCESSABLE_ENTITY) {
+      Object.assign(errors, err.messages);
+    } else {
+      toast.error('Não foi possível atualizar o perfil. Tente novamente!');
+    }
+
+    yield put(signFailure(errors));
   }
 }
 
@@ -105,6 +111,7 @@ export function rehydrateAuth({ payload }: any): void {
   if (payload?.user) {
     const persistedReducer = payload.user;
     persistedReducer.errors = {};
+    persistedReducer.loading = false;
   }
 }
 

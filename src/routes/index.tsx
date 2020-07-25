@@ -16,6 +16,7 @@ import {
   ResetPasswordRouteComponent,
   ProfileRouteComponent,
   AnimalsRoutesComponent,
+  VaccinesRoutesComponent,
   signInRoute,
   dashboardRoute,
   signUpRoute,
@@ -23,6 +24,7 @@ import {
   resetPasswordRoute,
   profileRoute,
   animalListRoute,
+  vaccineListRoute,
 } from './config';
 
 interface RoutesProps {
@@ -57,6 +59,7 @@ const AppRoutes: React.FC = () => {
       />
       <Route path={profileRoute.path} component={ProfileRouteComponent} exact />
       <Route path={animalListRoute.path} component={AnimalsRoutesComponent} />
+      <Route path={vaccineListRoute.path} component={VaccinesRoutesComponent} />
       <Route component={DashboardRouteComponent} />
     </Switch>
   );

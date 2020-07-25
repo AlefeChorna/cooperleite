@@ -6,3 +6,4 @@ export * from './dashboard.route';
 export * from './finances.route';
 export * from './profile.route';
 export * from './animals.route';
+export * from './vaccines.route';

@@ -230,8 +230,7 @@ const DrawerMenu: React.FC = () => {
                   isCollapsible={!!item.collapse}
                   collapseIsOpen={selectedCollapsedItems.get(item.name)}
                   onClick={(): void =>
-                    handleClick(item.name, '', !!item.collapse)
-                  }
+                    handleClick(item.name, '', !!item.collapse)}
                 />
                 {item.collapse && (
                   <Collapse
@@ -251,8 +250,7 @@ const DrawerMenu: React.FC = () => {
                             handleClick(
                               colItem.name,
                               colItem.collapseFatherName,
-                            )
-                          }
+                            )}
                         />
                       ))}
                     </List>
