@@ -25,7 +25,7 @@
     "color": "^3.1.2",
     "date-fns": "^2.15.0",
     "history": "^4.10.1",
-    "immer": "^6.0.3",
+    "immer": "^8.0.1",
     "path-parser": "^6.1.0",
     "polished": "^3.5.2",
     "query-string": "^6.12.1",
